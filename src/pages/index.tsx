@@ -3,17 +3,16 @@ import { useState } from "react";
 
 import { api } from "../utils/api";
 
-const GuestbookEntries = () => {
-  const { data: guestbookEntries, isLoading } = api.guestbook.getAll.useQuery();
+const VegetablesEntries = () => {
+  const { data: vegetablesEntries, isLoading } = api.vegetable.getAll.useQuery();
 
   if (isLoading) return <div>Fetching messages...</div>;
 
   return (
     <div className="flex flex-col gap-4">
-      {guestbookEntries?.map((entry, index) => {
+      {vegetablesEntries?.map((entry, index) => {
         return (
           <div key={index}>
-            <p>{entry.message}</p>
             <span>- {entry.name}</span>
           </div>
         );
@@ -27,10 +26,10 @@ const Form = () => {
   const { data: session, status } = useSession();
   
   const utils = api.useContext();
-  const postMessage = api.guestbook.postMessage.useMutation({
+  const postMessage = api.vegetable.postVegetable.useMutation({
     onMutate: async (newEntry) => {
-      await utils.guestbook.getAll.cancel();
-      utils.guestbook.getAll.setData(undefined, (prevEntries) => {
+      await utils.vegetable.getAll.cancel();
+      utils.vegetable.getAll.setData(undefined, (prevEntries) => {
         if (prevEntries) {
           return [newEntry, ...prevEntries];
         } else {
@@ -39,7 +38,7 @@ const Form = () => {
       });
     },
     onSettled: async () => {
-      await utils.guestbook.getAll.invalidate();
+      await utils.vegetable.getAll.invalidate();
     },
   });
   
@@ -52,7 +51,6 @@ const Form = () => {
         event.preventDefault();
         postMessage.mutate({
           name: session.user?.name as string,
-          message,
         });
         setMessage("");
       }}
@@ -119,7 +117,7 @@ const Home = () => {
     </button>
   )}
   <div className="pt-10">
-    <GuestbookEntries />
+    <VegetablesEntries />
   </div>
 </div>
   </div>
