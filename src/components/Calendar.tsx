@@ -3,20 +3,24 @@ import dayGridPlugin from "@fullcalendar/daygrid"
 import { useState } from "react";
 import { Modal } from "@mantine/core";
 import interactionPlugin from "@fullcalendar/interaction"
+import { AddEventForm } from "./Calendar/AddEventForm";
 
 export const Calendar = () => {
     const [opened, setOpened] = useState(false);
-    const handleDateClick = () => {
+    const [eventOnClick, setEventOnClick] = useState<any>()
+    const handleDateClick = (eventClickInfo: any) => {
+        setEventOnClick(eventClickInfo)
         setOpened(true)
     }
     return(
     <>
         <Modal
+        size="auto"
         opened={opened}
         onClose={() => setOpened(false)}
         title="Introduce yourself!"
         >
-        {/* Modal content */}
+          <AddEventForm event={eventOnClick}/>
         </Modal>
         <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin ]}
