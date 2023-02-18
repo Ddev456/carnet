@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction"
 import { AddEventForm } from "./Calendar/AddEventForm";
 import { api } from "../utils/api";
 import { useSession } from "next-auth/react";
+import { WizardAddEvent } from "./Calendar/WizardAddEvent";
 
 export const Calendar = () => {
     const query = api.event.getAll.useQuery()
@@ -22,9 +23,11 @@ export const Calendar = () => {
         size="auto"
         opened={opened}
         onClose={() => setOpened(false)}
-        title="Introduce yourself!"
+        // title="Introduce yourself!"
         >
-          <AddEventForm event={eventOnClick}/>
+            <WizardAddEvent>
+                <AddEventForm event={eventOnClick}/>
+            </WizardAddEvent>
         </Modal>
         {query.isLoading && <div> Chargement .. </div>}
         { query?.data &&

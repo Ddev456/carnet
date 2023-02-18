@@ -108,16 +108,9 @@ import { api } from '../../utils/api';
 export const AddEventForm = (event: any) => {
   const query = api.vegetable.getAll.useQuery();
             const { classes } = useStyles();
-            console.log(event) 
             return (
               <Paper shadow="md" radius="lg">
                 <div className={classes.wrapper}>
-                  <div className={classes.contacts}>
-                    <Text size="lg" weight={700} className={classes.title} sx={{ color: '#fff' }}>
-                      { event.event.dateStr.toString() }
-                    </Text>
-          
-                  </div>
           
                   <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
                     <Text size="lg" weight={700} className={classes.title}>
