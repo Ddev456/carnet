@@ -69,14 +69,6 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-
-model Guestbook {
-    id        String   @id @default(cuid())
-    createdAt DateTime @default(now())
-    name      String
-    message   String   @db.VarChar(100)
-}
-
 // model ExtrasInfos {
 //     id        Int   @id @default(autoincrement())
 //     createdAt DateTime @default(now())
@@ -109,4 +101,11 @@ model Vegetable {
     family      String?
     type        String?
     specie      String?
+}
+
+model Event {
+    id          Int   @id @default(autoincrement())
+    title       String
+    start       DateTime
+    end         DateTime?
 }
