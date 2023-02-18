@@ -59,6 +59,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     role          Role      @default(USER)
+    events        Event[]
 }
 
 model VerificationToken {
@@ -104,8 +105,11 @@ model Vegetable {
 }
 
 model Event {
-    id          Int   @id @default(autoincrement())
+    id          String   @id @default(cuid())
     title       String
-    start       DateTime
-    end         DateTime?
+    start       String
+    User        User?    @relation(fields: [userId], references: [id])
+    userId      String?
+
+    @@index([userId])
 }
