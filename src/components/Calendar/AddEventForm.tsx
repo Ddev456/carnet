@@ -11,6 +11,8 @@ import {
 import { DatePicker } from '@mantine/dates';
 import { IconCalendar } from '@tabler/icons-react';
 import 'dayjs/locale/fr';
+import { PickVegetableInput } from './PickVegetableInput';
+import { api } from '../../utils/api';
 
   const useStyles = createStyles((theme) => {
     const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -104,6 +106,7 @@ import 'dayjs/locale/fr';
           
 
 export const AddEventForm = (event: any) => {
+  const query = api.vegetable.getAll.useQuery();
             const { classes } = useStyles();
             console.log(event) 
             return (
@@ -127,6 +130,7 @@ export const AddEventForm = (event: any) => {
                         <TextInput label="Your email" placeholder="hello@mantine.dev" required />
                       </SimpleGrid>
           
+                    { query.data && <PickVegetableInput dataInput={query.data}/> }
                       
                     <DatePicker
                     locale="fr"
