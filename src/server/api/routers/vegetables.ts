@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
+import { adminProcedure, createTRPCRouter, publicProcedure } from "../trpc";
 
 export const vegetableRouter = createTRPCRouter({
     getAll: publicProcedure.query(async ({ ctx }) => {
@@ -16,7 +16,7 @@ export const vegetableRouter = createTRPCRouter({
           console.log("error", error);
         }
       }),
-    postVegetable: protectedProcedure
+    postVegetable: adminProcedure
     .input(
       z.object({
         name: z.string(),

@@ -109,7 +109,7 @@ export const AddEventForm = (event: any) => {
   const query = api.vegetable.getAll.useQuery();
             const { classes } = useStyles();
             return (
-              <Paper shadow="md" radius="lg">
+              <Paper shadow="md" radius="lg" style={{width: '600px'}}>
                 <div className={classes.wrapper}>
           
                   <form className={classes.form} onSubmit={(event) => event.preventDefault()}>

@@ -1,7 +1,9 @@
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 const AuthGuard = ({ children }: {children: JSX.Element} ) => {
 
+  const router = useRouter()
   const { data: session, status } = useSession();
 
   if (status === "loading") {
@@ -9,7 +11,7 @@ const AuthGuard = ({ children }: {children: JSX.Element} ) => {
   }
 
   if(status === "unauthenticated") {
-    return <p>Accès refusé</p>
+    router.push({pathname: '/login'})
   }
 
   return (<>{ children }</>)

@@ -69,13 +69,13 @@ export const WizardAddEvent = ({ children }: {children: JSX.Element} ) => {
   return (
     <div className={classes.wrapper}>
       <div className={classes.body}>
+      {/* <Image src={image.src} className={classes.image} /> */}
         <Title className={classes.title}>Assistant Potager</Title>
         <Text weight={500} size="lg" mb={5}>
           Ajouter un évènement au calendrier
         </Text>
         <Text size="sm" color="dimmed">
-          You will never miss important product updates, latest news and community QA sessions. Our
-          newsletter is once a week, every Sunday.
+          Sélectionnes une date, ajoute une plante potagère et choisis une catégorie pour l'ajouter au calendrier
         </Text>
 
         <div className={classes.controls}>
@@ -83,7 +83,6 @@ export const WizardAddEvent = ({ children }: {children: JSX.Element} ) => {
           <Button className={classes.control}>Subscribe</Button>
         </div>
       </div>
-      <Image src={image.src} className={classes.image} />
     </div>
   );
 }
