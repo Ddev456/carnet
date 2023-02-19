@@ -13,7 +13,6 @@ import { IconCalendar } from '@tabler/icons-react';
 import 'dayjs/locale/fr';
 import { PickVegetableInput } from './PickVegetableInput';
 import { api } from '../../utils/api';
-import { useState } from 'react';
 
   const useStyles = createStyles((theme) => {
     const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -106,52 +105,35 @@ import { useState } from 'react';
           });
           
 
-export const AddEventForm = (event: any) => {
-  
-            const query = api.vegetable.getAll.useQuery();
-            const [title, setTitle] = useState("")
-            const [start, setStart] = useState("")
+export const UpdateEventForm = (event: any) => {
+  const query = api.vegetable.getAll.useQuery();
             const { classes } = useStyles();
-            const utils = api.useContext();
-            const addEvent = api.event.postEvent.useMutation();
+            
             return (
               <Paper shadow="md" radius="lg" style={{width: '600px'}}>
                 <div className={classes.wrapper}>
           
-                  <form className={classes.form} onSubmit={(event) => {
-                  event.preventDefault();
-                  addEvent.mutate({
-                    title: title,
-                    start: start,
-                    end: (new Date(start + 1 * 60 * 60 * 1000)).toString()
-                  });
-                  setTitle("")
-                  setStart("")
-                  }}>
+                  <form className={classes.form} onSubmit={(event) => event.preventDefault()}>
                     <Text size="lg" weight={700} className={classes.title}>
-                      Ajouter un évènement
+                      Mettre à jour un évènement
                     </Text>
           
                     <div className={classes.fields}>
                       <SimpleGrid cols={2} breakpoints={[{ maxWidth: 'sm', cols: 1 }]}>
-                        <TextInput type="text" name="title" value={title} onChange={(event) => setTitle(event.target.value)} label="Titre" 
-                        placeholder="Titre de l'évènement" required/>
-                        {/* <TextInput label="Your email" placeholder="hello@mantine.dev" required /> */}
+                        <TextInput label="Your name" placeholder="Your name" />
+                        <TextInput label="Your email" placeholder="hello@mantine.dev" required />
                       </SimpleGrid>
           
-                    {/* A REMETTRE !!! */}
-                    {/* { query.data && <PickVegetableInput dataInput={query.data}/> } */}
+                    { query.data && <PickVegetableInput dataInput={query.data}/> }
                       
                     <DatePicker
-                    name='start'
-                    onChange={(event: Date) => setStart(event.toISOString())}
                     locale="fr"
                     placeholder="Date"
                     label="Choisir une date"
                     inputFormat="dddd, D MMMM, YYYY"
                     description="pour une tâche au potager .."
                     icon={<IconCalendar size={16} />}
-                    defaultValue={event.event.date}
+                    defaultValue={new Date(event.event.start)}
                     withAsterisk
                     />
 
@@ -165,7 +147,7 @@ export const AddEventForm = (event: any) => {
           
                       <Group position="right" mt="md">
                         <Button type="submit" className={classes.control}>
-                          Ajouter
+                          Mettre à  jour
                         </Button>
                       </Group>
                     </div>

@@ -108,6 +108,7 @@ model Event {
     id          String   @id @default(cuid())
     title       String
     start       String
+    end         String
     User        User?    @relation(fields: [userId], references: [id])
     userId      String?
 

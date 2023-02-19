@@ -17,21 +17,26 @@ export const eventRouter = createTRPCRouter({
           console.log("error", error);
         }
       }),
-    // postEvent: protectedProcedure
-    // .input(
-    //   z.object({
-    //     name: z.string(),
-    //   })
-    // )
-    // .mutation(async ({ ctx, input }) => {
-    //   try {
-    //     await ctx.prisma.event.create({
-    //       data: {
-    //         name: input.name,
-    //       },
-    //     });
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }),
+    postEvent: protectedProcedure
+    .input(
+      z.object({
+        title: z.string(),
+        start: z.string(),
+        end: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      try {
+        await ctx.prisma.event.create({
+          data: {
+            title: input.title,
+            start: input.start,
+            end: input.end,
+            userId: ctx.session.user.id
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }),
 });

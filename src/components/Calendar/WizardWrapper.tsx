@@ -64,7 +64,7 @@ const useStyles = createStyles((theme) => ({
     },
   }));
   
-export const WizardAddEvent = ({ children }: {children: JSX.Element} ) => {
+export const WizardWrapper = ({ wizardType, children }: { wizardType: string, children: JSX.Element } ) => {
   const { classes } = useStyles();
   return (
     <div className={classes.wrapper}>
@@ -72,15 +72,15 @@ export const WizardAddEvent = ({ children }: {children: JSX.Element} ) => {
       {/* <Image src={image.src} className={classes.image} /> */}
         <Title className={classes.title}>Assistant Potager</Title>
         <Text weight={500} size="lg" mb={5}>
-          Ajouter un évènement au calendrier
+          {wizardType === 'ADD' ? 'Ajouter un évènement au calendrier' : (wizardType === 'UPDATE') ? 'Mettre à jour un évènement du calendrier' : 'Ajouter des évènement dynamiquement via l\'assistant' }
         </Text>
         <Text size="sm" color="dimmed">
-          Sélectionnes une date, ajoute une plante potagère et choisis une catégorie pour l'ajouter au calendrier
+          {wizardType === 'ADD' ? 'Sélectionnes une date, ajoute une plante potagère et choisis une catégorie pour l\'ajouter au calendrier' : (wizardType === 'UPDATE') ? 'Modifies la date, la plante potagère associée ou tout autres informations' : 'Laisse-toi guider par l\'assistant..' }
         </Text>
 
         <div className={classes.controls}>
           { children }
-          <Button className={classes.control}>Subscribe</Button>
+          {/* <Button className={classes.control}>{wizardType === 'ADD' ? 'Ajouter' : (wizardType === 'UPDATE') ? 'Mettre à jour' : 'Terminer' }</Button> */}
         </div>
       </div>
     </div>

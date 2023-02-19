@@ -91,11 +91,11 @@ export const Nav = ({opened, hiddenBreakpoint}: {opened: boolean; hiddenBreakpoi
   const router = useRouter()
 console.log(router.pathname);
 
-  const links = data.map((item) => (
+  const links = data.map((item, index) => (
     <Link
       className={cx(classes.link, { [classes.linkActive]: router.pathname === item.link })}
       href={item.link}
-      // key={item.label}
+      key={index}
       // onClick={(event) => {
       //   event.preventDefault();
       //   setActive(item.label);
@@ -110,7 +110,7 @@ console.log(router.pathname);
     <Navbar hiddenBreakpoint={hiddenBreakpoint} hidden={!opened} width={{ sm: 300 }} p="md">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
-        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-seeding" width="76" height="76" viewBox="0 0 24 24" stroke-width="1.5" stroke="#7bc62d" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-seeding" width="76" height="76" viewBox="0 0 24 24" stroke-width="1.5" stroke="#7bc62d" fill="none" strokeLinecap="round" strokeLinejoin="round">
         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
         <path d="M12 10a6 6 0 0 0 -6 -6h-3v2a6 6 0 0 0 6 6h3" />
         <path d="M12 14a6 6 0 0 1 6 -6h3v1a6 6 0 0 1 -6 6h-3" />

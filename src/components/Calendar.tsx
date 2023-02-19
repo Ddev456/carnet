@@ -3,20 +3,14 @@ import dayGridPlugin from "@fullcalendar/daygrid"
 import { useState } from "react";
 import { Modal } from "@mantine/core";
 import interactionPlugin from "@fullcalendar/interaction"
-import { AddEventForm } from "./Calendar/AddEventForm";
 import { api } from "../utils/api";
-import { useSession } from "next-auth/react";
-import { WizardAddEvent } from "./Calendar/WizardAddEvent";
+import { Wizard } from "./Calendar/Wizard";
+import { useWizard } from "./Calendar/hooks/useWizard";
 
 export const Calendar = () => {
     const query = api.event.getAll.useQuery()
-    const [opened, setOpened] = useState(false);
-    const [eventOnClick, setEventOnClick] = useState<any>()
-    const handleDateClick = (eventClickInfo: any) => {
-        setEventOnClick(eventClickInfo)
-        setOpened(true)
-    }
-
+    const { wizardType, opened, setOpened, handleDateClick, handleEventClick, dateOnClick, eventOnClick } = useWizard()
+    
     return(
     <>
         <Modal
@@ -25,21 +19,16 @@ export const Calendar = () => {
         onClose={() => setOpened(false)}
         // title="Introduce yourself!"
         >
-            <WizardAddEvent>
-                <AddEventForm event={eventOnClick}/>
-            </WizardAddEvent>
+            <Wizard dateOnClick={dateOnClick} eventOnClick={eventOnClick} wizardType={wizardType}/>
         </Modal>
         {query.isLoading && <div> Chargement .. </div>}
         { query?.data &&
         <FullCalendar
         plugins={[ dayGridPlugin, interactionPlugin ]}
         dateClick={handleDateClick}
+        eventClick={({event}) => handleEventClick(event.toPlainObject())}
         initialView="dayGridMonth"
         events={query.data[0]?.events}
-        // events={[
-        // { title: 'event 1', date: '2023-02-17' },
-        // { title: 'event 2', date: '2023-02-19' }
-        // ]}
         /> 
         }
     </>
