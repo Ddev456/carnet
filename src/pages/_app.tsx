@@ -1,18 +1,14 @@
 import { AppProps, type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-
 import { api } from "../utils/api";
-
 import "../styles/globals.css";
-
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
-import { useState } from "react";
-
 import PageLayout from "../components/PageLayout";
 import Head from "next/head";
 import { NextComponentType } from "next";
 import AuthGuard from "../components/AuthGuard";
+import { useLocalStorage } from "@mantine/hooks";
 
 // type CustomAppProps = AppProps & {
 //   Component: NextComponentType & {requireAuth?: boolean} // add auth type
@@ -28,7 +24,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }: CustomAppProps) => {
 
-  const [colorScheme, setColorScheme] = useState<ColorScheme>("dark")
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+    key: 'mantine-color-scheme',
+    defaultValue: 'light',
+    getInitialValueInEffect: true,
+  });
   const toggleColorScheme = (value?: ColorScheme) => { setColorScheme(value || (colorScheme === "dark" ? "light" : "dark")) }
 
   return (

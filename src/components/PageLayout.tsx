@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { AppShell, Header, Text, MediaQuery, Burger, useMantineTheme, Group, Switch, useMantineColorScheme } from "@mantine/core";
-import { useSession } from "next-auth/react";
 import { Nav } from "./Nav";
-import { useRouter } from "next/router";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
 
 const PageLayout = ({children}: any) => {
-    const router = useRouter()
+
     const { colorScheme, toggleColorScheme } = useMantineColorScheme();
     const theme = useMantineTheme()
     const [opened, setOpened] = useState(false)
