@@ -6,6 +6,7 @@ export const vegetableRouter = createTRPCRouter({
         try {
           return await ctx.prisma.vegetable.findMany({
             select: {
+              id: true,
               name: true,
             },
             orderBy: {

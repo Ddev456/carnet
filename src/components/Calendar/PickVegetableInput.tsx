@@ -1,9 +1,12 @@
 import { forwardRef } from 'react';
 import { Group, Avatar, Text, MantineColor, SelectItemProps, Autocomplete } from '@mantine/core';
 
-export const PickVegetableInput = ({dataInput, setRelatedVegetable}: any) => {
+export const PickVegetableInput = ({dataInput, setRelatedVegetable, relatedVegetable}: any) => {
 
-const data = dataInput && dataInput.map((item: any) => ({ value: item.name }));
+console.log(dataInput);
+
+
+const data = dataInput && dataInput.map((item: any) => ({ id: item.id, value: item.name }));
 
 interface ItemProps extends SelectItemProps {
     color: MantineColor;
@@ -33,14 +36,14 @@ const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
   return (
    
     <Autocomplete
-    onChange={(relatedVegetable)=> setRelatedVegetable(relatedVegetable)}
-      label="Choisir une plante potagère à associer"
-      placeholder="tomate .."
-      itemComponent={AutoCompleteItem}
-      data={data}
-      filter={(value, item) =>
-        item.value.toLowerCase().includes(value.toLowerCase().trim()) 
-        // ||item.description.toLowerCase().includes(value.toLowerCase().trim())
+    onChange={(vegetable)=> setRelatedVegetable(dataInput.find((v: { name: string; }) => v.name === vegetable ).id)}
+    label="Choisir une plante potagère à associer"
+    placeholder="tomate .."
+    itemComponent={AutoCompleteItem}
+    data={data}
+    filter={(value, item) => 
+      item.value.toLowerCase().includes(value.toLowerCase().trim())
+        // item.value.toLowerCase().includes(value.toLowerCase().trim()) 
       }
     />
   );

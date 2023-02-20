@@ -108,7 +108,6 @@ import { ImageCheckboxes } from './ImageCheckBox';
           
 
 export const AddEventForm = (event: any) => {
-  
             const query = api.vegetable.getAll.useQuery();
             const [title, setTitle] = useState("")
             const [start, setStart] = useState(new Date(event.event.date))
@@ -143,7 +142,7 @@ export const AddEventForm = (event: any) => {
                         {/* <TextInput label="Your email" placeholder="hello@mantine.dev" required /> */}
                       </SimpleGrid>
           
-                    { query.data && <PickVegetableInput setRelatedVegetable={setRelatedVegetable} dataInput={query.data}/> }
+                    { query.data && <PickVegetableInput relatedVegetable={relatedVegetable} setRelatedVegetable={setRelatedVegetable} dataInput={query.data}/> }
                     
 
                     <DatePicker
