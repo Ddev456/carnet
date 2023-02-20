@@ -111,26 +111,26 @@ export const AddEventForm = (event: any) => {
   
             const query = api.vegetable.getAll.useQuery();
             const [title, setTitle] = useState("")
-            const [start, setStart] = useState("")
+            const [start, setStart] = useState(new Date(event.event.date))
             const [eventCategory, setEventCategory] = useState("")
             const [relatedVegetable, setRelatedVegetable] = useState(0)
             const { classes } = useStyles();
             const utils = api.useContext();
             const addEvent = api.event.postEvent.useMutation();
             return (
-              <Paper shadow="md" radius="lg" style={{width: '600px'}}>
+              <Paper shadow="md" radius="lg">
                 <div className={classes.wrapper}>
           
                   <form className={classes.form} onSubmit={(event) => {
                   event.preventDefault();
                   addEvent.mutate({
                     title: title,
-                    start: start,
-                    end: (new Date(start).getTime() + 1 * 60 * 60 * 1000).toString(),
+                    start: start.toISOString(),
+                    end: new Date(start.getTime() + (1 * 60 * 60 * 1000)).toISOString(),
                     extendedProps: { eventCategory: eventCategory, relatedVegetable: relatedVegetable }
                   });
                   setTitle("")
-                  setStart("")
+                  setStart(new Date())
                   }}>
                     <Text size="lg" weight={700} className={classes.title}>
                       Ajouter un évènement
@@ -143,12 +143,12 @@ export const AddEventForm = (event: any) => {
                         {/* <TextInput label="Your email" placeholder="hello@mantine.dev" required /> */}
                       </SimpleGrid>
           
-                    { query.data && <PickVegetableInput dataInput={query.data}/> }
+                    { query.data && <PickVegetableInput setRelatedVegetable={setRelatedVegetable} dataInput={query.data}/> }
                     
 
                     <DatePicker
                     name='start'
-                    onChange={(event: Date) => setStart(event.toISOString())}
+                    onChange={(event: Date) => setStart(event)}
                     locale="fr"
                     placeholder="Date"
                     label="Choisir une date"

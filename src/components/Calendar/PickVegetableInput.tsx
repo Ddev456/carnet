@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { Group, Avatar, Text, MantineColor, SelectItemProps, Autocomplete } from '@mantine/core';
 
-export const PickVegetableInput = ({dataInput}: any) => {
+export const PickVegetableInput = ({dataInput, setRelatedVegetable}: any) => {
 
 const data = dataInput && dataInput.map((item: any) => ({ value: item.name }));
 
@@ -33,7 +33,7 @@ const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
   return (
    
     <Autocomplete
-    onChange={(relatedVegetable)=> console.log(relatedVegetable)}
+    onChange={(relatedVegetable)=> setRelatedVegetable(relatedVegetable)}
       label="Choisir une plante potagère à associer"
       placeholder="tomate .."
       itemComponent={AutoCompleteItem}

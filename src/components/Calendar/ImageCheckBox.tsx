@@ -80,7 +80,7 @@ export function ImageCheckbox({
       <Checkbox
         checked={value}
         value={title}
-        onChange={(event) => console.log(event.target.value)}
+        onChange={(event) => setEventCategory(event.target.value)}
         tabIndex={-1}
         styles={{ input: { cursor: 'pointer' } }}
       />
@@ -97,9 +97,10 @@ const mockdata = [
 
 export function ImageCheckboxes({setEventCategory}: any) {
   const items = mockdata.map((item) => <ImageCheckbox setEventCategory={setEventCategory} {...item} key={item.title} />);
-  return (
+  return (<>
+      <h4>Sélectionner une ou plusieurs catégories d'évènement</h4>
     <SimpleGrid
-      cols={4}
+      cols={2}
       breakpoints={[
         { maxWidth: 'md', cols: 2 },
         { maxWidth: 'sm', cols: 1 },
@@ -107,5 +108,6 @@ export function ImageCheckboxes({setEventCategory}: any) {
     >
       {items}
     </SimpleGrid>
+    </>
   );
 }
