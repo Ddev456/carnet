@@ -14,6 +14,7 @@ import 'dayjs/locale/fr';
 import { PickVegetableInput } from './PickVegetableInput';
 import { api } from '../../utils/api';
 import { useState } from 'react';
+import { ImageCheckboxes } from './ImageCheckBox';
 
   const useStyles = createStyles((theme) => {
     const BREAKPOINT = theme.fn.smallerThan('sm');
@@ -111,6 +112,8 @@ export const AddEventForm = (event: any) => {
             const query = api.vegetable.getAll.useQuery();
             const [title, setTitle] = useState("")
             const [start, setStart] = useState("")
+            const [eventCategory, setEventCategory] = useState("")
+            const [relatedVegetable, setRelatedVegetable] = useState(0)
             const { classes } = useStyles();
             const utils = api.useContext();
             const addEvent = api.event.postEvent.useMutation();
@@ -123,7 +126,8 @@ export const AddEventForm = (event: any) => {
                   addEvent.mutate({
                     title: title,
                     start: start,
-                    end: (new Date(start + 1 * 60 * 60 * 1000)).toString()
+                    end: (new Date(start).getTime() + 1 * 60 * 60 * 1000).toString(),
+                    extendedProps: { eventCategory: eventCategory, relatedVegetable: relatedVegetable }
                   });
                   setTitle("")
                   setStart("")
@@ -139,9 +143,9 @@ export const AddEventForm = (event: any) => {
                         {/* <TextInput label="Your email" placeholder="hello@mantine.dev" required /> */}
                       </SimpleGrid>
           
-                    {/* A REMETTRE !!! */}
-                    {/* { query.data && <PickVegetableInput dataInput={query.data}/> } */}
-                      
+                    { query.data && <PickVegetableInput dataInput={query.data}/> }
+                    
+
                     <DatePicker
                     name='start'
                     onChange={(event: Date) => setStart(event.toISOString())}
@@ -155,13 +159,7 @@ export const AddEventForm = (event: any) => {
                     withAsterisk
                     />
 
-          
-                      <Textarea
-                        mt="md"
-                        label="Your message"
-                        placeholder="Please include all relevant information"
-                        minRows={3}
-                      />
+                    <ImageCheckboxes setEventCategory={setEventCategory}/>
           
                       <Group position="right" mt="md">
                         <Button type="submit" className={classes.control}>

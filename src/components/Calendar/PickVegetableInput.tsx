@@ -33,8 +33,9 @@ const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
   return (
    
     <Autocomplete
-      label="Choose employee of the month"
-      placeholder="Pick one"
+    onChange={(relatedVegetable)=> console.log(relatedVegetable)}
+      label="Choisir une plante potagère à associer"
+      placeholder="tomate .."
       itemComponent={AutoCompleteItem}
       data={data}
       filter={(value, item) =>

@@ -23,6 +23,7 @@ export const eventRouter = createTRPCRouter({
         title: z.string(),
         start: z.string(),
         end: z.string(),
+        extendedProps: z.object({eventCategory: z.string(), relatedVegetable: z.number()})
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -32,7 +33,8 @@ export const eventRouter = createTRPCRouter({
             title: input.title,
             start: input.start,
             end: input.end,
-            userId: ctx.session.user.id
+            userId: ctx.session.user.id,
+            extendedProps: input.extendedProps
           },
         });
       } catch (error) {
