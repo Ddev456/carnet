@@ -1,8 +1,15 @@
+import { UseQueryOptions } from "@tanstack/react-query";
 import { TableSort } from "../../components/Table";
 import { api } from "../../utils/api";
 
+export interface UseTRPCQueryOptions extends UseQueryOptions{
+  trpc: {
+    refetchOnWindowFocus: boolean;
+  }
+}
+
 const VegetablesEntries = () => {
-    const query = api.vegetable.getAll.useQuery();
+    const query = api.vegetable.getAll.useQuery<UseTRPCQueryOptions>(undefined, {refetchOnWindowFocus: false});
     
     return (
       <>

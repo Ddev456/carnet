@@ -8,6 +8,7 @@ import {
   Text,
   Center,
   TextInput,
+  Avatar,
 } from '@mantine/core';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
 import { keys } from '@mantine/utils';
@@ -35,6 +36,7 @@ const useStyles = createStyles((theme) => ({
 
 interface RowData {
   name: string;
+  icon: string;
 }
 
 interface TableSortProps {
@@ -117,8 +119,11 @@ export function TableSort({ data }: TableSortProps) {
   };
 
   const rows = sortedData.map((row) => (
-    <tr key={row.name}>
-      <td>{row.name}</td>
+    <tr key={row.name}>   
+      <td>
+      <Avatar size={26} src={row.icon} radius={26} />
+        <Text>{row.name}</Text>
+      </td>
     </tr>
   ));
 

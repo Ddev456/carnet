@@ -20,7 +20,7 @@ const Form = () => {
           return [newEntry];
         }
       });
-    },
+  },
     onSettled: async () => {
       await utils.vegetable.getAll.invalidate();
     },

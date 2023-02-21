@@ -9,9 +9,10 @@ import { useWizard } from "./Calendar/hooks/useWizard";
 import listPlugin from "@fullcalendar/list"
 import frLocale from '@fullcalendar/core/locales/fr';
 import multiMonthPlugin from '@fullcalendar/multimonth'
+import { UseTRPCQueryOptions } from "../pages/legumotheque/index";
 
 export const Calendar = () => {
-    const query = api.event.getAll.useQuery()
+    const query = api.event.getAll.useQuery<UseTRPCQueryOptions>(undefined, {refetchOnWindowFocus: false})
     const { wizardType, opened, setOpened, handleDateClick, handleEventClick, dateOnClick, eventOnClick } = useWizard()
     
     const buildToolbar = () => {

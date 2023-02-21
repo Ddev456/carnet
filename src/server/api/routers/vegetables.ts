@@ -8,6 +8,7 @@ export const vegetableRouter = createTRPCRouter({
             select: {
               id: true,
               name: true,
+              icon: true,
             },
             orderBy: {
               createdAt: "desc",
