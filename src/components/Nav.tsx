@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createStyles, Navbar, Group, Code, MantineNumberSize } from '@mantine/core';
+import { createStyles, Navbar, Group, Code, MantineNumberSize, ThemeIcon, Box, Image } from '@mantine/core';
 import {
   IconHome,
   IconSeeding,
@@ -14,7 +14,8 @@ import {
 import { FcCalendar, FcHome, FcAcceptDatabase } from 'react-icons/fc'
 import { signOut } from "next-auth/react";
 import Link from 'next/link';
-import { useRouter } from 'next/router.js';
+import { useRouter } from 'next/router';
+import { FavoritesLinks } from './FavoritesLinks';
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef('icon');
@@ -64,10 +65,10 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
     linkActive: {
       '&, &:hover': {
-        backgroundColor: theme.colors.lime[1],
-        color: theme.colors.lime[7],
+        backgroundColor: theme.colors.gray[1],
+        color: theme.colors.gray[7],
         [`& .${icon}`]: {
-          color:theme.colors.lime[7],
+          color:theme.colors.gray[7],
         },
       },
     },
@@ -75,9 +76,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 const data = [
-  { link: '/', label: 'Dashboard', icon: IconHome },
-  { link: '/legumotheque', label: 'Légumothèque', icon: IconSeeding },
-  { link: '/calendrier', label: 'Calendrier', icon: IconCalendar },
+  { link: '/', label: 'Dashboard', icon: FcHome },
+  { link: '/legumotheque', label: 'Légumothèque', icon: FcCalendar },
+  { link: '/calendrier', label: 'Calendrier', icon: FcAcceptDatabase },
   // { link: '', label: 'SSH Keys', icon: IconKey },
   // { link: '', label: 'Databases', icon: IconDatabaseImport },
   // { link: '', label: 'Authentication', icon: Icon2fa },
@@ -101,8 +102,10 @@ console.log(router.pathname);
       //   setActive(item.label);
       // }}
     >
-      <item.icon className={classes.linkIcon} stroke={1.5} />
-      <span>{item.label}</span>
+      <ThemeIcon variant="light" size="lg">
+          <item.icon size={18} stroke="1.5" />
+      </ThemeIcon>
+      <Box ml="md">{item.label}</Box>
     </Link>
   ));
 
@@ -110,16 +113,10 @@ console.log(router.pathname);
     <Navbar hiddenBreakpoint={hiddenBreakpoint} hidden={!opened} width={{ sm: 300 }} p="md">
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
-        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-seeding" width="76" height="76" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#7bc62d" fill="none" strokeLinecap="round" strokeLinejoin="round">
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-        <path d="M12 10a6 6 0 0 0 -6 -6h-3v2a6 6 0 0 0 6 6h3" />
-        <path d="M12 14a6 6 0 0 1 6 -6h3v1a6 6 0 0 1 -6 6h-3" />
-        <line x1="12" y1="20" x2="12" y2="10" />
-        </svg>
-        {/* <img width={120} src="logocp.png" alt="" /> */}
-          <Code sx={{ fontWeight: 700 }}>v0.1.1</Code>
+        <Image className='hidden md:block' src="flowerNav.png" height={180}/>
         </Group>
         {links}
+        <FavoritesLinks/>
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
