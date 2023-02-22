@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Group, Box, Collapse, ThemeIcon, Text, UnstyledButton, createStyles } from '@mantine/core';
 import { FcOpenedFolder } from 'react-icons/fc';
 import { IconChevronRight, IconChevronLeft } from '@tabler/icons-react'
@@ -44,7 +44,7 @@ const useStyles = createStyles((theme) => ({
   }));
 
 interface LinksGroupProps {
-  icon: IconType;
+  icon: ReactNode;
   label: string;
   initiallyOpened?: boolean;
   links?: { label: string; link: string }[];
@@ -72,9 +72,9 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
       <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control}>
         <Group position="apart" spacing={0}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <ThemeIcon variant="light" size={30}>
-              <Icon size={18} />
-            </ThemeIcon>
+            {/* <ThemeIcon variant={"outline"} size={30}> */}
+              { Icon }
+            {/* </ThemeIcon> */}
             <Box ml="md">{label}</Box>
           </Box>
           {hasLinks && (
@@ -96,7 +96,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
 
 const mockdata = {
   label: 'Mes Favoris',
-  icon: FcOpenedFolder,
+  icon: <img src="https://img.icons8.com/bubbles/50/null/filled-star.png"/>,
   links: [
     { label: 'Tomate', link: '/' },
     { label: 'Betterave', link: '/' },

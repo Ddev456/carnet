@@ -76,9 +76,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
 });
 
 const data = [
-  { link: '/', label: 'Dashboard', icon: FcHome },
-  { link: '/legumotheque', label: 'Légumothèque', icon: FcCalendar },
-  { link: '/calendrier', label: 'Calendrier', icon: FcAcceptDatabase },
+  { link: '/', label: 'Dashboard', icon: <img src="https://img.icons8.com/bubbles/50/null/home-page.png"/> },
+  { link: '/legumotheque', label: 'Légumothèque', icon: <img src="https://img.icons8.com/bubbles/50/null/today.png"/> },
+  { link: '/calendrier', label: 'Calendrier', icon: <img src="https://img.icons8.com/bubbles/50/null/sprout.png"/> },
   // { link: '', label: 'SSH Keys', icon: IconKey },
   // { link: '', label: 'Databases', icon: IconDatabaseImport },
   // { link: '', label: 'Authentication', icon: Icon2fa },
@@ -102,9 +102,9 @@ console.log(router.pathname);
       //   setActive(item.label);
       // }}
     >
-      <ThemeIcon variant="light" size="lg">
-          <item.icon size={18} stroke="1.5" />
-      </ThemeIcon>
+      {/* <ThemeIcon variant="light" size="lg"> */}
+          { item.icon }
+      {/* </ThemeIcon> */}
       <Box ml="md">{item.label}</Box>
     </Link>
   ));
