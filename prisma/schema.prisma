@@ -81,7 +81,7 @@ model VerificationToken {
 model Vegetable {
     id        Int   @id @default(autoincrement())
     createdAt DateTime @default(now())
-    icon      String?
+    icon      String? @db.Text
     name      String
     wikipedia String?
     seedling  String?

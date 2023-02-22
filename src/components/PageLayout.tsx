@@ -4,6 +4,9 @@ import { Nav } from "./Nav";
 import { IconMoonStars, IconSun } from "@tabler/icons-react";
 import { MediaQueryNav } from "./MediaQueryNav";
 import { HeaderTabs } from "./Header";
+import {ImBooks} from 'react-icons/im'
+import { AiOutlineHome } from 'react-icons/ai'
+import { IoMdCalendar } from 'react-icons/io'
 
 const PageLayout = ({children}: any) => {
 
@@ -22,9 +25,9 @@ const PageLayout = ({children}: any) => {
                 }
             }}
             header={
-            <HeaderTabs tabs={[{label: "Tableau de bord", link: "/", img: "https://img.icons8.com/color/48/null/home--v1.png"}, 
-            {label: "Légumothèque", link: "/legumotheque", img: "https://img.icons8.com/color/48/null/courses.png"}, 
-            {label: "Calendrier", link: "/calendrier", img: "https://img.icons8.com/color/48/null/calendar--v1.png"}]}/>
+            <HeaderTabs tabs={[{label: "Tableau de bord", link: "/", icon: <AiOutlineHome/>}, 
+            {label: "Légumothèque", link: "/legumotheque", icon: <ImBooks/>}, 
+            {label: "Calendrier", link: "/calendrier", icon: <IoMdCalendar/>}]}/>
     }
     >{children}</AppShell>
     )

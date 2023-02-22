@@ -95,7 +95,7 @@ const useStyles = createStyles((theme) => ({
 type tab = {
         label: string;
         link: string;
-        img: string;
+        icon: JSX.Element;
 }
 
 interface HeaderTabsProps {
@@ -111,9 +111,11 @@ export function HeaderTabs({ tabs }: HeaderTabsProps) {
   const [userMenuOpened, setUserMenuOpened] = useState(false);
 
   const items = tabs.map((tab) => (
-    <Tabs.Tab value={tab.link} key={tab.label} icon={<img width={30} height={30} src={tab.img}/>}>
-      <Link href={tab.link} className='hidden sm:block'>{tab.label}</Link> 
-    </Tabs.Tab>
+    <Link href={tab.link} key={tab.label}>
+      <Tabs.Tab value={tab.link} icon={tab.icon} className="text-4xl sm:text-lg">
+        <span className='hidden sm:block'>{tab.label}</span>
+      </Tabs.Tab>
+    </Link> 
   ));
 
   const matches = useMediaQuery('(min-width: 768px)');
@@ -122,9 +124,8 @@ export function HeaderTabs({ tabs }: HeaderTabsProps) {
     <Header height={{ base: 80, md: 90 }} position={matches ? {top: 0} : {bottom:0}} className={classes.header}>
       <Container>
         <Group position="apart">
-          {/* <MantineLogo size={28} /> */}
+          <Text color="lime.6" className='__logo hidden sm:block text-2xl'>Carnet Potager.</Text>
           <div className='flex'>
-          <span className='hidden sm:block'>Carnet Potager</span>
           </div>
           {/* <Burger opened={opened} onClick={toggle} className={classes.burger} size="sm" /> */}
 

@@ -12,6 +12,7 @@ import {
 } from '@mantine/core';
 import { IconSelector, IconChevronDown, IconChevronUp, IconSearch } from '@tabler/icons-react';
 import { keys } from '@mantine/utils';
+import Link from 'next/link.js';
 
 const useStyles = createStyles((theme) => ({
   th: {
@@ -32,11 +33,44 @@ const useStyles = createStyles((theme) => ({
     height: 21,
     borderRadius: 21,
   },
+  searchBar: {
+    position: 'sticky',
+    top: 0,
+    transition: 'box-shadow 150ms ease'
+  },
+  header: {
+    position: 'sticky',
+    top: 45,
+    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+    transition: 'box-shadow 150ms ease',
+
+    '&::after': {
+      content: '""',
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      borderBottom: `1px solid ${
+        theme.colorScheme === 'dark' ? theme.colors.dark[3] : theme.colors.gray[2]
+      }`,
+    },
+  },
+
+  scrolled: {
+    boxShadow: theme.shadows.sm,
+  },
 }));
 
 interface RowData {
+  id: number;
   name: string;
   icon: string;
+  exposition: string;
+  family: string;
+  harvest: string;
+  plantation: string;
+  seedling: string;
+  specie: string;
 }
 
 interface TableSortProps {
@@ -100,6 +134,8 @@ function sortData(
 }
 
 export function TableSort({ data }: TableSortProps) {
+  const { classes, cx } = useStyles();
+  const [scrolled, setScrolled] = useState(false);
   const [search, setSearch] = useState('');
   const [sortedData, setSortedData] = useState(data);
   const [sortBy, setSortBy] = useState<keyof RowData | null>(null);
@@ -121,27 +157,35 @@ export function TableSort({ data }: TableSortProps) {
   const rows = sortedData.map((row) => (
     <tr key={row.name}>   
       <td>
-      <Avatar size={26} src={row.icon} radius={26} />
+        <Link href={`/legumotheque/fiche/${row.id}`}>
+        <Avatar className='static' size={26} src={row.icon} radius={26} />
         <Text>{row.name}</Text>
+        </Link>
       </td>
+      <td>{row.family}</td>
+      <td>{row.specie}</td>
+      <td>{row.seedling}</td>
+      <td>{row.plantation}</td>
+      <td>{row.harvest}</td>
     </tr>
   ));
 
   return (
-    <ScrollArea>
+    <ScrollArea sx={{ height: 600 }} onScrollPositionChange={({ y }) => setScrolled(y !== 0)}>
       <TextInput
-        placeholder="Search by any field"
+        placeholder="Rechercher une plante potagère .."
         mb="md"
         icon={<IconSearch size={14} stroke={1.5} />}
         value={search}
         onChange={handleSearchChange}
+        className={classes.searchBar}
       />
       <Table
         horizontalSpacing="md"
         verticalSpacing="xs"
-        sx={{ tableLayout: 'fixed', minWidth: 700 }}
+        sx={{ minWidth: 700 }}
       >
-        <thead>
+        <thead className={cx(classes.header, { [classes.scrolled]: scrolled })}>
           <tr>
             <Th
               sorted={sortBy === 'name'}
@@ -149,6 +193,41 @@ export function TableSort({ data }: TableSortProps) {
               onSort={() => setSorting('name')}
             >
               Plante potagère
+            </Th>
+            <Th
+              sorted={sortBy === 'family'}
+              reversed={reverseSortDirection}
+              onSort={() => setSorting('family')}
+            >
+              Famille
+            </Th>
+            <Th
+              sorted={sortBy === 'specie'}
+              reversed={reverseSortDirection}
+              onSort={() => setSorting('specie')}
+            >
+              Espèce
+            </Th>
+            <Th
+              sorted={sortBy === 'seedling'}
+              reversed={reverseSortDirection}
+              onSort={() => setSorting('seedling')}
+            >
+              Semis
+            </Th>
+            <Th
+              sorted={sortBy === 'plantation'}
+              reversed={reverseSortDirection}
+              onSort={() => setSorting('plantation')}
+            >
+              Plantation
+            </Th>
+            <Th
+              sorted={sortBy === 'harvest'}
+              reversed={reverseSortDirection}
+              onSort={() => setSorting('harvest')}
+            >
+              Récolte
             </Th>
           </tr>
         </thead>

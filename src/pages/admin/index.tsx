@@ -10,7 +10,7 @@ const Form = () => {
   const { data: session, status } = useSession();
   
   const utils = api.useContext();
-  const postMessage = api.vegetable.postVegetable.useMutation({
+  const postVegetable = api.vegetable.postVegetable.useMutation({
     onMutate: async (newEntry) => {
       await utils.vegetable.getAll.cancel();
       utils.vegetable.getAll.setData(undefined, (prevEntries) => {
@@ -33,7 +33,7 @@ const Form = () => {
       className="flex gap-2"
       onSubmit={(event) => {
         event.preventDefault();
-        postMessage.mutate({
+        postVegetable.mutate({
           name: name,
         });
         setName("");

@@ -24,7 +24,8 @@ const config = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'img.icons8.com',
+        hostname: 'pixabay.com',
+        pathname: 'get'
       },
     ],
   },
