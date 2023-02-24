@@ -4,7 +4,6 @@ import { FaTemperatureLow, FaSeedling } from 'react-icons/fa'
 
 const useStyles = createStyles((theme) => ({
   root: {
-    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
     borderRadius: theme.radius.sm,
   },
 

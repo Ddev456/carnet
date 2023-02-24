@@ -20,6 +20,7 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  swcMinify: true,
   images: {
     remotePatterns: [
       {
@@ -27,6 +28,10 @@ const config = {
         hostname: 'pixabay.com',
         pathname: 'get'
       },
+      {
+        protocol: 'https',
+        hostname: 'cdn.discordapp.com'
+      }
     ],
   },
 };

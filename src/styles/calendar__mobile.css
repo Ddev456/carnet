@@ -1,0 +1,10 @@
+@media screen and (max-width: 768px) {
+    .fc-header-toolbar{
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 5%;
+    }
+    .fc-view-harness{
+        height: 50vh !important;
+    }
+}

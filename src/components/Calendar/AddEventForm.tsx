@@ -5,8 +5,10 @@ import {
     Textarea,
     Button,
     Group,
+    Stepper,
     SimpleGrid,
     createStyles,
+    Input,
   } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 import { IconCalendar } from '@tabler/icons-react';
@@ -108,6 +110,13 @@ import { ImageCheckboxes } from './ImageCheckBox';
           
 
 export const AddEventForm = (event: any) => {
+
+  // STEPPER
+  const [active, setActive] = useState(1);
+  const nextStep = () => setActive((current) => (current < 3 ? current + 1 : current));
+  const prevStep = () => setActive((current) => (current > 0 ? current - 1 : current));
+  // STEPPER
+
             const query = api.vegetable.getAll.useQuery();
             const [title, setTitle] = useState("")
             const [start, setStart] = useState(new Date(event.event.date))
@@ -120,6 +129,21 @@ export const AddEventForm = (event: any) => {
               <Paper shadow="md" radius="lg">
                 <div className={classes.wrapper}>
           
+                <Stepper active={active} onStepClick={setActive} breakpoint="sm" allowNextStepsSelect={false}>
+                    <Stepper.Step step={1} label="First step" description="Create an account">
+                        Quel évènement voulez-vous ajouter ?
+                        <Input.Wrapper
+                        id="input-demo"
+                        withAsterisk
+                        label="Ajouter un titre d'évènement"
+                        description="Veuillez saisir un titre"
+                        error="Le champ ne doit pas être vide !"
+                      >
+                        <Input id="input-demo" placeholder="Tailler les framboisiers, repiquer le semis .." />
+                      </Input.Wrapper>
+                </Stepper.Step>
+               
+                <Stepper.Step state='stepInactive' step={2} label="Second step" description="Verify email">
                   <form className={classes.form} onSubmit={(event) => {
                   event.preventDefault();
                   addEvent.mutate({
@@ -167,6 +191,12 @@ export const AddEventForm = (event: any) => {
                       </Group>
                     </div>
                   </form>
+                  </Stepper.Step>
+                  </Stepper>
+                  <Group position="center" mt="xl">
+                    <Button variant="default" onClick={prevStep}>Back</Button>
+                    <Button onClick={nextStep}>Next step</Button>
+                  </Group>
                 </div>
               </Paper>
             );

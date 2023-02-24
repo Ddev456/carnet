@@ -86,7 +86,7 @@ const useStyles = createStyles((theme) => ({
     },
 
     '&[data-active]': {
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white,
+      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.indigo[0],
       borderColor: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.colors.gray[2],
     },
   },
@@ -151,31 +151,22 @@ export function HeaderTabs({ tabs }: HeaderTabsProps) {
               </UnstyledButton>
             </Menu.Target>
             <Menu.Dropdown>
-              <Menu.Item icon={<IconHeart size={14} color={theme.colors.red[6]} stroke={1.5} />}>
-                Liked posts
-              </Menu.Item>
               <Menu.Item icon={<IconStar size={14} color={theme.colors.yellow[6]} stroke={1.5} />}>
-                Saved posts
-              </Menu.Item>
-              <Menu.Item icon={<IconMessage size={14} color={theme.colors.blue[6]} stroke={1.5} />}>
-                Your comments
+                Plantes Favorites
               </Menu.Item>
 
               <Menu.Label>Settings</Menu.Label>
-              <Menu.Item icon={<IconSettings size={14} stroke={1.5} />}>Account settings</Menu.Item>
+              <Menu.Item icon={<IconSettings size={14} stroke={1.5} />}>Paramètres</Menu.Item>
               <Menu.Item icon={<IconSwitchHorizontal size={14} stroke={1.5} />}>
-                Change account
+                Changer de compte
               </Menu.Item>
               <Menu.Item icon={<IconLogout size={14} stroke={1.5} />} onClick={() => { signOut().catch(console.log)}}>Déconnexion</Menu.Item>
 
               <Menu.Divider />
 
               <Menu.Label>Danger zone</Menu.Label>
-              <Menu.Item icon={<IconPlayerPause size={14} stroke={1.5} />}>
-                Pause subscription
-              </Menu.Item>
               <Menu.Item color="red" icon={<IconTrash size={14} stroke={1.5} />}>
-                Delete account
+                Supprimer le compte
               </Menu.Item>
             </Menu.Dropdown>
           </Menu>

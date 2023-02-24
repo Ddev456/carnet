@@ -5,11 +5,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@700&display=swap');
 
 @import 'calendar.css';
-
-body {
-    @apply bg-neutral-900 text-neutral-100;
-  }
+@import 'calendar__mobile.css';
 
 .__logo{
   font-family: 'Fira Sans', sans-serif;
+}
+
+.__button__lime{
+  background-color: #f4fce3!important;
+}
+.__button__lime:hover{
+  background-color: #e9fac8!important;
 }

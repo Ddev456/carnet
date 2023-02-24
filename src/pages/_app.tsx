@@ -9,7 +9,7 @@ import Head from "next/head";
 import { NextComponentType } from "next";
 import AuthGuard from "../components/AuthGuard";
 import { useLocalStorage } from "@mantine/hooks";
-
+import { Provider as RWBProvider } from "react-wrap-balancer";
 // type CustomAppProps = AppProps & {
 //   Component: NextComponentType & {requireAuth?: boolean} // add auth type
 // }
@@ -33,6 +33,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 
   return (
     <SessionProvider session={session}>
+
       <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
             <Head >
                 <link rel="icon" href="favicon.ico" />
@@ -56,10 +57,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
                     </PageLayout>
               </AuthGuard>
               ) : (
-                <Component {...pageProps} />
+                <RWBProvider>
+                    <Component {...pageProps} />
+                </RWBProvider>
               ) }
           </MantineProvider>
       </ColorSchemeProvider>
+
     </SessionProvider>
   );
 };

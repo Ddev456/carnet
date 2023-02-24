@@ -1,10 +1,12 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { Group, Avatar, Text, MantineColor, SelectItemProps, Autocomplete } from '@mantine/core';
+import { Vegetable } from '@prisma/client';
+import { useAddEventFormContext } from './hooks/addEventForm-context';
 
-export const PickVegetableInput = ({dataInput, setRelatedVegetable, relatedVegetable}: any) => {
-
-console.log(dataInput);
-
+export const PickVegetableInput = ({dataInput}: any) => {
+  const form = useAddEventFormContext();
+  const [value, setValue] = useState('');
+  console.log(value);
 
 const data = dataInput && dataInput.map((item: any) => ({ id: item.id, value: item.name }));
 
@@ -34,17 +36,22 @@ const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
 
 
   return (
-   
+    
     <Autocomplete
-    onChange={(vegetable)=> setRelatedVegetable(dataInput.find((v: { name: string; }) => v.name === vegetable ).id)}
+    {...form.getInputProps('relatedVegetable.value')}
+    // onChange={(vegetable)=> setRelatedVegetable(dataInput.find((v: { name: string; }) => v.name === vegetable ).id)}
     label="Choisir une plante potagère à associer"
     placeholder="tomate .."
     itemComponent={AutoCompleteItem}
     data={data}
-    filter={(value, item) => 
+    // value={value}
+    // onChange={setValue}
+    filter={(value, item) =>          
       item.value.toLowerCase().includes(value.toLowerCase().trim())
-        // item.value.toLowerCase().includes(value.toLowerCase().trim()) 
-      }
+         
+      // item.value.toLowerCase().includes(value.toLowerCase().trim())
+      // item.value.toLowerCase().includes(value.toLowerCase().trim()) 
+    }
     />
   );
 }

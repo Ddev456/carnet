@@ -1,6 +1,8 @@
 import { UnstyledButton, Checkbox, Text, Image, SimpleGrid, createStyles } from '@mantine/core';
 import { useUncontrolled } from '@mantine/hooks';
+import { useState } from 'react';
 import { FcAssistant, FcAddressBook, FcAdvertising, FcAlarmClock } from 'react-icons/fc'
+import { useAddEventFormContext } from './hooks/addEventForm-context';
 
 const useStyles = createStyles((theme, { checked }: { checked: boolean }) => ({
   button: {
@@ -31,7 +33,6 @@ const useStyles = createStyles((theme, { checked }: { checked: boolean }) => ({
 }));
 
 interface ImageCheckboxProps {
-  setEventCategory: any
   checked?: boolean;
   defaultChecked?: boolean;
   onChange?(checked: boolean): void;
@@ -39,9 +40,8 @@ interface ImageCheckboxProps {
   description: string;
   image: string;
 }
-
-export function ImageCheckbox({
-  setEventCategory,
+export function ImageCheckboxes() {
+function ImageCheckbox({
   checked,
   defaultChecked,
   onChange,
@@ -51,13 +51,14 @@ export function ImageCheckbox({
   image,
   ...others
 }: ImageCheckboxProps & Omit<React.ComponentPropsWithoutRef<'button'>, keyof ImageCheckboxProps>) {
-  const [value, handleChange] = useUncontrolled({
-    value: checked,
-    defaultValue: defaultChecked,
-    finalValue: false,
-    onChange,
-  });
-
+  // const [value, handleChange] = useUncontrolled({
+  //   value: checked,
+  //   defaultValue: defaultChecked,
+  //   finalValue: false,
+  //   onChange,
+  // });
+  const form = useAddEventFormContext();
+  const [value, handleChange] = useState(false)
   const { classes, cx } = useStyles({ checked: value });
 
   return (
@@ -78,9 +79,10 @@ export function ImageCheckbox({
       </div>
 
       <Checkbox
+      {...form.getInputProps('eventCategory', {type: 'checkbox'})}
+      onChange={(event)=>console.log(event.target.value)}
         checked={value}
         value={title}
-        onChange={(event) => setEventCategory(event.target.value)}
         tabIndex={-1}
         styles={{ input: { cursor: 'pointer' } }}
       />
@@ -95,8 +97,8 @@ const mockdata = [
   { description: 'Snow and ice', title: 'Winter vacation', image: "imagecheckbox.png" },
 ];
 
-export function ImageCheckboxes({setEventCategory}: any) {
-  const items = mockdata.map((item) => <ImageCheckbox setEventCategory={setEventCategory} {...item} key={item.title} />);
+
+  const items = mockdata.map((item) => <ImageCheckbox {...item} key={item.title} />);
   return (<>
       <h4>Sélectionner une ou plusieurs catégories d'évènement</h4>
     <SimpleGrid
