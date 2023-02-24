@@ -6,6 +6,7 @@
 
 @import 'calendar.css';
 @import 'calendar__mobile.css';
+@import 'wizardAddStepper.css';
 
 .__logo{
   font-family: 'Fira Sans', sans-serif;

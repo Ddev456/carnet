@@ -10,7 +10,6 @@ import {
     createStyles,
     Input,
   } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
 import { IconCalendar } from '@tabler/icons-react';
 import 'dayjs/locale/fr';
 import { PickVegetableInput } from './PickVegetableInput';

@@ -10,9 +10,7 @@ import { IoMdCalendar } from 'react-icons/io'
 
 const PageLayout = ({children}: any) => {
 
-    const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-    const theme = useMantineTheme()
-    const [opened, setOpened] = useState(false)
+
     return (
     <AppShell
             padding="md"
