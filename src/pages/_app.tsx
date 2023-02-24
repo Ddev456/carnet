@@ -10,9 +10,6 @@ import { NextComponentType } from "next";
 import AuthGuard from "../components/AuthGuard";
 import { useLocalStorage } from "@mantine/hooks";
 import { Provider as RWBProvider } from "react-wrap-balancer";
-// type CustomAppProps = AppProps & {
-//   Component: NextComponentType & {requireAuth?: boolean} // add auth type
-// }
 
 export interface CustomAppProps extends AppProps {
   Component: NextComponentType & {requireAuth?: boolean} // add auth type
