@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { TiTick } from "react-icons/ti";
 import RadioInput from "./Form/RadioInput";
 import { SearchInput } from "./Form/SearchInput";
 import { TextInput } from "./Form/TextInput";
 
 const Stepper = () => {
-  const steps = ["Titre de l'évènement", "Plante potagère associée", "Catégorie d'évènement", "Date de l'évènement"];
+  const steps = ["Titre et date de l'évènement", "Plante potagère associée", "Catégorie d'évènement"];
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [complete, setComplete] = useState(false);
   const nestedInput = (step: number) => {
@@ -18,8 +18,8 @@ const Stepper = () => {
         return <SearchInput />;
       case 3:
         return <RadioInput />;
-      case 4:
-        return <SearchInput />;
+      // case 4:
+      //   return ;
       default:
         break;
     }

@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <Layout>
       <motion.div
-        className="max-w-xl px-5 xl:px-0"
+        className="max-w-xl px-5 xl:px-0 relative"
         initial="hidden"
         whileInView="show"
         animate="show"
