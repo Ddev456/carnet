@@ -1,31 +1,51 @@
 import { useFormContext } from "react-hook-form";
 import DatePicker from "react-datepicker";
-
+import { registerLocale } from  "react-datepicker";
+import fr from "date-fns/locale/fr";
 import "react-datepicker/dist/react-datepicker.css";
 import { useRef, useState } from "react";
 
 export const TextInput = () => {
 
+    registerLocale('fr', fr)
     const [start, setStart] = useState(new Date())
     const { register, setValue } = useFormContext();
     return (
-    <div className="flex justify-center">
-      <div className="relative mb-3 xl:w-96">
-            {/* <input
-            {... register('title')}
-              type="text"
-              name="title"/> */}
-            {/* <label htmlFor="title">Titre</label> */}
-         
-              <DatePicker onChange={(date: Date)=> {setStart(date); setValue('start', start.toISOString())}} selected={start}/>
-              <input
+    <div className="flex flex-col">      
+      {/* <label htmlFor="title" className="block text-sm font-semibold text-gray-700">Titre</label>
+      <div className="relative mt-1 rounded-md shadow-sm">
+        <input  {... register('title')} type="text" name="title" id="title" className="block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="0.00"/>
+      </div> */}
+
+      <div className="w-72">
+  <div className="relative h-10 w-full min-w-[200px]">
+    <div
+      className="absolute top-2/4 right-3 grid h-5 w-5 -translate-y-2/4 place-items-center text-blue-gray-500"
+    >
+      <i className="fas fa-heart" aria-hidden="true"></i>
+    </div>
+    <input
+     {... register('title')}
+      className="peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+      placeholder=" "
+    /><label
+      className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-pink-500 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500"
+      >Titre
+    </label>
+  </div>
+</div>
+
+              <DatePicker
+              dateFormat="dd/MM/yyyy"
+              locale={'fr'}
+              className="mt-4 mb-4 peer h-full w-full rounded-[7px] border border-blue-gray-200 bg-transparent px-3 py-2.5 !pr-9 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-pink-500 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+              onChange={(date: Date)=> {setStart(date); setValue('start', date.toISOString()); setValue('end', new Date(date.getTime() + (1 * 60 * 60 * 1000)).toISOString())}} selected={start}/>
+              {/* <input
               defaultValue={start.toISOString()}
               {...register('start')}
               type="hidden"
               hidden
-            />
-                     
-      </div>
+            /> */}
 </div>
     )
 }

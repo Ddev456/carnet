@@ -47,6 +47,8 @@ export const Calendar = () => {
                 >
                  <HiPlus/><span>Ajouter</span> 
                 </motion.button>
+                </AnimatePresence>
+                <AnimatePresence>
                 <motion.button whileTap={{ scale: 0.6 }} transition={{duration: 0.3}} className="hidden md:flex justify-center items-center bg-yellow-200 md:px-4 md:py-3
                 text-sm font-semibold text-center
                 rounded-md cursor-pointer
@@ -56,7 +58,7 @@ export const Calendar = () => {
                 >
                 <FcFlashAuto/><span className="ml-2">Générer</span>
                 </motion.button>
-                </AnimatePresence>
+            </AnimatePresence>
           </div>
         <WizardModal/>
       <div className="p-4">

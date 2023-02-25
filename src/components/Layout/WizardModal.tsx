@@ -44,6 +44,7 @@ const WizardModal = ({
 
 export function useWizardModal() {
   const [showWizardModal, setShowWizardModal] = useState(false);
+  console.log(showWizardModal)
   const [wizardType, setWizardType] = useState('');
   const [onClickInfos, setOnClickInfos] = useState();
   const WizardModalCallback = useCallback(() => {
@@ -52,7 +53,7 @@ export function useWizardModal() {
         wizardType={wizardType}
         showWizardModal={showWizardModal}
         setShowWizardModal={setShowWizardModal}
-      ><Wizard wizardType={wizardType} onClickInfos={onClickInfos}/></WizardModal>
+      ><Wizard setShowWizardModal={setShowWizardModal} wizardType={wizardType} onClickInfos={onClickInfos}/></WizardModal>
     );
   }, [showWizardModal, setShowWizardModal, wizardType, setWizardType]);
 

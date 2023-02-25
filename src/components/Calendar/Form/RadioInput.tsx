@@ -1,33 +1,108 @@
-export default function RadioInput() {
+import { useState } from 'react'
+import { RadioGroup } from '@headlessui/react'
+import { useFormContext } from 'react-hook-form'
+
+const plans = [
+  {
+    name: 'Récolte',
+    ram: '12GB',
+    cpus: '6 CPUs',
+    disk: '160 GB SSD disk',
+  },
+  {
+    name: 'Jardinage',
+    ram: '16GB',
+    cpus: '8 CPUs',
+    disk: '512 GB SSD disk',
+  },
+  {
+    name: 'Achat',
+    ram: '32GB',
+    cpus: '12 CPUs',
+    disk: '1024 GB SSD disk',
+  },
+]
+
+export const RadioInput = () => {
+  const [selected, setSelected] = useState(plans[0])
+  const { setValue } = useFormContext()
   return (
-    <div className="flex justify-center">
-  <div>
-    <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
-      <input
-        className="relative float-left mt-0.5 mr-1 -ml-[1.5rem] h-5 w-5 appearance-none rounded-full border-2 border-solid border-[rgba(0,0,0,0.25)] bg-white before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:bg-white after:content-[''] checked:border-primary checked:bg-white checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary checked:focus:bg-white checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s]"
-        type="radio"
-        name="flexRadioDefault"
-        id="radioDefault01" />
-      <label
-        className="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
-        htmlFor="radioDefault01">
-        Default radio
-      </label>
+    <div className="w-full px-4 py-16">
+      <div className="mx-auto w-full max-w-md">
+        <RadioGroup value={selected} onChange={(value) => { setSelected(value); setValue('eventCategory', value.name)}}>
+          <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
+          <div className="space-y-2">
+            {plans.map((plan) => (
+              <RadioGroup.Option
+                key={plan.name}
+                value={plan}
+                className={({ active, checked }) =>
+                  `${
+                    active
+                      ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
+                      : ''
+                  }
+                  ${
+                    checked ? 'bg-sky-900 bg-opacity-75 text-white' : 'bg-white'
+                  }
+                    relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
+                }
+              >
+                {({ active, checked }) => (
+                  <>
+                    <div className="flex w-full items-center justify-between">
+                      <div className="flex items-center">
+                        <div className="text-sm">
+                          <RadioGroup.Label
+                            as="p"
+                            className={`font-medium  ${
+                              checked ? 'text-white' : 'text-gray-900'
+                            }`}
+                          >
+                            {plan.name}
+                          </RadioGroup.Label>
+                          <RadioGroup.Description
+                            as="span"
+                            className={`inline ${
+                              checked ? 'text-sky-100' : 'text-gray-500'
+                            }`}
+                          >
+                            <span>
+                              {plan.ram}/{plan.cpus}
+                            </span>{' '}
+                            <span aria-hidden="true">&middot;</span>{' '}
+                            <span>{plan.disk}</span>
+                          </RadioGroup.Description>
+                        </div>
+                      </div>
+                      {checked && (
+                        <div className="shrink-0 text-white">
+                          <CheckIcon className="h-6 w-6" />
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+              </RadioGroup.Option>
+            ))}
+          </div>
+        </RadioGroup>
+      </div>
     </div>
-    <div className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem]">
-      <input
-        className="relative float-left mt-0.5 mr-1 -ml-[1.5rem] h-5 w-5 appearance-none rounded-full border-2 border-solid border-[rgba(0,0,0,0.25)] bg-white before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:bg-white after:content-[''] checked:border-primary checked:bg-white checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.625rem] checked:after:w-[0.625rem] checked:after:rounded-full checked:after:border-primary checked:after:bg-primary checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:transition-[border-color_0.2s] focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-primary checked:focus:bg-white checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s]"
-        type="radio"
-        name="flexRadioDefault"
-        id="radioDefault02"
-        checked />
-      <label
-        className="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
-        htmlFor="radioDefault02">
-        Default checked radio
-      </label>
-    </div>
-  </div>
-</div>
+  )
+}
+
+function CheckIcon(props: any) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <circle cx={12} cy={12} r={12} fill="#fff" opacity="0.2" />
+      <path
+        d="M7 13l3 3 7-7"
+        stroke="#fff"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
   )
 }
