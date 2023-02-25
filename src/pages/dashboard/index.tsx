@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext } from "next";
 import { useSession } from "next-auth/react";
-import { ActionsGrid } from "../../components/Dashboard/ActionsGrid";
 import { requireAuthentication } from "../../utils/requireAuthentication";
 
 export default function Dashboard () {
@@ -11,7 +10,6 @@ export default function Dashboard () {
   return (
         <main className="flex flex-col items-center">
             {session && <p className="mb-4 text-center">Bienvenue {session.user?.name}</p>}
-            <ActionsGrid />
         </main>
   )
 }

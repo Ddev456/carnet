@@ -26,6 +26,7 @@
     "@mantine/utils": "^5.10.4",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "^4.10.1",
+    "@radix-ui/react-collapsible": "^1.0.1",
     "@radix-ui/react-popover": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.3",
     "@tabler/icons-react": "^2.4.0",

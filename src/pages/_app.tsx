@@ -7,6 +7,7 @@ import Head from "next/head";
 import { NextComponentType } from "next";
 import AuthGuard from "../components/AuthGuard";
 import { Provider as RWBProvider } from "react-wrap-balancer";
+import DashboardLayout from "../components/Layout/DashboardLayout";
 
 export interface CustomAppProps extends AppProps {
   Component: NextComponentType & {requireAuth?: boolean} // add auth type
@@ -32,9 +33,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
        
               {Component.requireAuth ? (
                 <AuthGuard>
-                 
+                    <DashboardLayout>
                         <Component {...pageProps}/>
-                  
+                    </DashboardLayout>
               </AuthGuard>
               ) : (
                 <RWBProvider>

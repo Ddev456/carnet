@@ -49,3 +49,7 @@ a.fc-col-header-cell-cushion {
     line-height: 1.25rem !important;
     text-transform: capitalize !important;
 }
+
+.fc-view-harness{
+    max-height: 45rem !important;
+}

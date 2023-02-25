@@ -14,6 +14,7 @@ import Modal from "./Shared/Modal";
 import { useWizardModal } from "./Layout/WizardModal";
 import { AnimatePresence, motion } from "framer-motion";
 import { FADE_IN_ANIMATION_SETTINGS } from "../../lib/constants";
+import { HiPlus } from 'react-icons/hi'
 
 export const Calendar = () => {
     const query = api.event.getAll.useQuery<UseTRPCQueryOptions>(undefined, {refetchOnWindowFocus: false})
@@ -35,25 +36,30 @@ export const Calendar = () => {
       const handleDynamic = () => {  setWizardType("DYNAMIC"); setShowWizardModal(true); } 
     return(
     <>
+    <div className="flex justify-around p-2">
        <AnimatePresence>
        <motion.button
-                  className="border-green-200 border p-1.5 px-4 text-sm text-white transition-all hover:bg-green-300 hover:text-black bg-green-500"
+                  whileTap={{ scale: 0.6 }} transition={{duration: 0.3}} className="hidden md:flex justify-center items-center bg-lime-200 md:px-4 md:py-3
+                  text-sm font-semibold text-center
+                  rounded-md cursor-pointer
+                hover:bg-lime-300"
                   onClick={handleAdd}
-                  {...FADE_IN_ANIMATION_SETTINGS}
                 >
-                  Ajouter
+                 <HiPlus/><span>Ajouter</span> 
                 </motion.button>
-       <motion.button
-                  className="border-yellow-200 border p-1.5 px-4 text-sm text-white transition-all hover:bg-green-300 hover:text-black bg-yellow-500"
+                <motion.button whileTap={{ scale: 0.6 }} transition={{duration: 0.3}} className="hidden md:flex justify-center items-center bg-yellow-200 md:px-4 md:py-3
+                text-sm font-semibold text-center
+                rounded-md cursor-pointer
+              hover:bg-yellow-300"
                   onClick={handleDynamic}
-                  {...FADE_IN_ANIMATION_SETTINGS}
+                  // {...FADE_IN_ANIMATION_SETTINGS}
                 >
-                  Générer
+                <FcFlashAuto/><span className="ml-2">Générer</span>
                 </motion.button>
                 </AnimatePresence>
-
+          </div>
         <WizardModal/>
-
+      <div className="p-4">
         {query.isLoading && <div> Chargement .. </div>}
         { query?.data &&
         <FullCalendar
@@ -66,6 +72,7 @@ export const Calendar = () => {
         events={query.data[0]?.events}
         />
         }
+        </div>
     </>
     )
 }
