@@ -123,7 +123,11 @@ const methods = useForm({
     
     if(complete === true){
       const userId = Session?.user.id
-      const input = DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: data.preferencesDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).generate()
+      const prefDays: number[] = data.preferencesDays.map((pref: string)=> { return parseInt(pref) })
+
+      // console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).generate())
+      // console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).dynDate)
+      const input = DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).generate()
       
       addEvent.mutate(input)
       setShowWizardModal(false)

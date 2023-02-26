@@ -12,7 +12,7 @@ export const PreferencesStep = () => {
     <h2>Jours de jardinage au potager</h2>
   <div className="flex flex-wrap">
     <div className="flex items-start space-x-3 py-6">
-      <input {...register('preferencesDays')} value={0} type="checkbox" className="border-gray-300 rounded h-5 w-5" />
+      <input {...register('preferencesDays')} value={0 as number} type="checkbox" className="border-gray-300 rounded h-5 w-5" />
 
       <div className="flex flex-col">
         <h1 className="text-gray-700 font-medium leading-none">Lundi</h1>
