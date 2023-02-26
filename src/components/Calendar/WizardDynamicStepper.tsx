@@ -101,7 +101,7 @@ type FormInputs = {
   selection: number[];
   climateIndex: number;
   preferencesDays: number[];
-  preferencesCalendar: [];
+  preferencesCalendar: string[];
 };
 
 const [complete, setComplete] = useState(false)
@@ -113,29 +113,31 @@ const methods = useForm({
       selection: [],
       climateIndex: 0, 
       preferencesDays: [],
-      preferencesCalendar: [{seedling: false, shelterSeedling: false, germination: false, plantation: false, harvest: false}]
+      preferencesCalendar: []
     },
   });
 
   const onSubmit = (data: any) => {
-    // if(complete){
+    console.log(data);
+    
+    if(complete){
 
-      const selection = [10, 16]
-      const climateIndex = 2
+      // const selection = [10, 16]
+      // const climateIndex = 2
 
 
-      // const weekFinder = queryNativeEvents.data && queryNativeEvents?.data.find(native => native.vegetableId === vegetableSelected)
+      // // const weekFinder = queryNativeEvents.data && queryNativeEvents?.data.find(native => native.vegetableId === vegetableSelected)
  
-      const week = 10
+      // const week = 10
       
-      const preferencesDays = [5]
+      // const preferencesDays = [5]
 
-      const year = 2023
+      // const year = 2023
 
-      const calendars = {seedling: true, shelterSeedling: false, germination: true, plantation: true, harvest: true}
+      // const calendars = {seedling: true, shelterSeedling: false, germination: true, plantation: true, harvest: true}
 
-      // calendars.map((dateToGenerate) => {
-        console.log(DynamicCalendar({selection,climateIndex, preferencesDays, year, calendars, nativeEvents}).generate())
+      // // calendars.map((dateToGenerate) => {
+      //   console.log(DynamicCalendar({selection,climateIndex, preferencesDays, year, calendars, nativeEvents}).generate())
       //  if(dateToGenerate.seedling === true){
         // const dynDate = DynamicCalendar({preferencesDays, week, year}).generate()
         // console.log('dynDate', dynDate)
@@ -155,8 +157,8 @@ const methods = useForm({
   //   end: data.end,
   //   extendedProps: { eventCategory: data.eventCategory, relatedVegetable: data.relatedVegetable.id }
   // })
-  // setShowWizardModal(false)
-  // }
+  setShowWizardModal(false)
+  }
   }
   return (
         <>
