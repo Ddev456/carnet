@@ -75,7 +75,7 @@ export const PreferencesStep = () => {
     <h2>Calendriers à intégrer</h2>
   <div className="flex flex-wrap">
   <div className="flex items-start space-x-3 py-6">
-    <input {...register('preferencesCalendar.shelterSeedling')} value='shelterSeedling' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
+    <input {...register('preferencesCalendar')} value='shelterSeedling' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
 
     <div className="flex flex-col">
       <h1 className="text-gray-700 font-medium leading-none">Semis sous abri</h1>
@@ -84,7 +84,7 @@ export const PreferencesStep = () => {
   </div>
 
   <div className="flex items-start space-x-3 py-6">
-    <input {...register('preferencesCalendar.seedling')} value='seedling' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
+    <input {...register('preferencesCalendar')} value='seedling' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
 
     <div className="flex flex-col">
       <h1 className="text-gray-700 font-medium leading-none">Semis extérieur</h1>
@@ -93,7 +93,7 @@ export const PreferencesStep = () => {
   </div>
 
   <div className="flex items-start space-x-3 py-6">
-    <input {...register('preferencesCalendar.germination')} value='germination' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
+    <input {...register('preferencesCalendar')} value='germination' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
 
     <div className="flex flex-col">
       <h1 className="text-gray-700 font-medium leading-none">Germination</h1>
@@ -101,7 +101,7 @@ export const PreferencesStep = () => {
     </div>
   </div>
   <div className="flex items-start space-x-3 py-6">
-    <input {...register('preferencesCalendar.plantation')} value='plantation' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
+    <input {...register('preferencesCalendar')} value='plantation' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
 
     <div className="flex flex-col">
       <h1 className="text-gray-700 font-medium leading-none">Plantation</h1>
@@ -109,7 +109,7 @@ export const PreferencesStep = () => {
     </div>
   </div>
   <div className="flex items-start space-x-3 py-6">
-    <input {...register('preferencesCalendar.harvest')} value='harvest' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
+    <input {...register('preferencesCalendar')} value='harvest' type="checkbox" className="border-gray-300 rounded h-5 w-5" />
 
     <div className="flex flex-col">
       <h1 className="text-gray-700 font-medium leading-none">Récolte</h1>

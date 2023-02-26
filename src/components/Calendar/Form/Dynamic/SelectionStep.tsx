@@ -68,7 +68,7 @@ export const SelectionStep = () => {
                               active ? 'bg-teal-600 text-white' : 'text-gray-900'
                             }`
                           }
-                          value={vegetable.id}
+                          value={vegetable}
                         >
                           {({ selected, active }) => (
                             <>

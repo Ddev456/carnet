@@ -9,7 +9,7 @@ import { SelectionStep } from "./Form/Dynamic/SelectionStep";
 import { ClimateStep } from "./Form/Dynamic/ClimateStep";
 import { PreferencesStep } from "./Form/Dynamic/PreferencesStep";
 import { DynamicCalendar } from "./Form/Dynamic/DynamicCalendar";
-import { Prisma } from "@prisma/client";
+import { Prisma, Vegetable } from "@prisma/client";
 
 const Stepper = ({complete, setComplete}: {complete: boolean, setComplete: Dispatch<SetStateAction<boolean>>}) => {
   
@@ -98,7 +98,7 @@ export const WizardDynamicStepper = ({setShowWizardModal}: {setShowWizardModal: 
   // SOLUTION
   
 type FormInputs = {
-  selection: number[];
+  selection: Vegetable[];
   climateIndex: number;
   preferencesDays: number[];
   preferencesCalendar: string[];
@@ -137,7 +137,7 @@ const methods = useForm({
       // const calendars = {seedling: true, shelterSeedling: false, germination: true, plantation: true, harvest: true}
 
       // // calendars.map((dateToGenerate) => {
-      //   console.log(DynamicCalendar({selection,climateIndex, preferencesDays, year, calendars, nativeEvents}).generate())
+      console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: data.preferencesDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents}).generate())
       //  if(dateToGenerate.seedling === true){
         // const dynDate = DynamicCalendar({preferencesDays, week, year}).generate()
         // console.log('dynDate', dynDate)
