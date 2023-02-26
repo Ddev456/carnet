@@ -1,6 +1,7 @@
 import { createTRPCRouter } from "./trpc";
 import { vegetableRouter } from "./routers/vegetables";
 import { eventRouter } from "./routers/event";
+import { nativeEventsRouter } from "./routers/nativeEvents";
 
 /**
  * This is the primary router for your server.
@@ -9,7 +10,8 @@ import { eventRouter } from "./routers/event";
  */
 export const appRouter = createTRPCRouter({
   vegetable: vegetableRouter,
-  event: eventRouter
+  event: eventRouter,
+  nativeEvents: nativeEventsRouter
 });
 
 // export type definition of API

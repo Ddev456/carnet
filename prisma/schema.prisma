@@ -103,6 +103,7 @@ model Vegetable {
     family      String?
     type        String?
     specie      String?
+    nativeEvent NativeEvents?
 }
 
 model Event {
@@ -115,4 +116,14 @@ model Event {
     extendedProps       Json
 
     @@index([userId])
+}
+
+model NativeEvents {
+    id                  String @id @default(cuid())
+    Vegetable           Vegetable   @relation(fields: [vegetableId], references: [id])
+    vegetableId         Int         @unique
+    germination         Int
+    plantation          Int
+    harvest             Int
+    nativeWeeks         Json        @db.Json
 }

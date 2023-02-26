@@ -30,6 +30,7 @@
     "@radix-ui/react-collapsible": "^1.0.1",
     "@radix-ui/react-popover": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.3",
+    "@south-paw/react-vector-maps": "^3.2.0",
     "@tabler/icons-react": "^2.4.0",
     "@tailwindcss/forms": "^0.5.3",
     "@tanstack/react-query": "^4.24.9",

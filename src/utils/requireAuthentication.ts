@@ -12,7 +12,7 @@ export const requireAuthentication = async (context: {
     if(!session) {
         return {
             redirect: {
-                destination: '/login',
+                destination: '/',
                 permanent: false
             }
         }

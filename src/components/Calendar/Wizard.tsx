@@ -23,6 +23,6 @@ export const Wizard = ({wizardType, onClickInfos, setShowWizardModal}: WizardPro
                 console.log('ici');
                 
             return(
-                <WizardDynamicStepper/>
+                <WizardDynamicStepper setShowWizardModal={setShowWizardModal}/>
             )}
     }

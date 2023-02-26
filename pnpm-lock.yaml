@@ -21,6 +21,7 @@ specifiers:
   '@radix-ui/react-collapsible': ^1.0.1
   '@radix-ui/react-popover': ^1.0.3
   '@radix-ui/react-tooltip': ^1.0.3
+  '@south-paw/react-vector-maps': ^3.2.0
   '@tabler/icons-react': ^2.4.0
   '@tailwindcss/forms': ^0.5.3
   '@tanstack/react-query': ^4.24.9
@@ -82,6 +83,7 @@ dependencies:
   '@radix-ui/react-collapsible': 1.0.1_biqbaboplfbrettd7655fr4n2y
   '@radix-ui/react-popover': 1.0.3_zula6vjvt3wdocc4mwcxqa6nzi
   '@radix-ui/react-tooltip': 1.0.3_zula6vjvt3wdocc4mwcxqa6nzi
+  '@south-paw/react-vector-maps': 3.2.0_react@18.2.0
   '@tabler/icons-react': 2.4.0_react@18.2.0
   '@tailwindcss/forms': 0.5.3_tailwindcss@3.2.7
   '@tanstack/react-query': 4.24.9_biqbaboplfbrettd7655fr4n2y
@@ -1294,6 +1296,14 @@ packages:
   /@rushstack/eslint-patch/1.2.0:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: true
+
+  /@south-paw/react-vector-maps/3.2.0_react@18.2.0:
+    resolution: {integrity: sha512-4Y88ZA8RuXxlBD7hgguVZjiTZsxvnN0Eheip/7YeM22B8hwae058C4Xx7Fi1PyIhOF5yWU/yXxyCMwFE7Awrwg==}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@swc/helpers/0.4.14:
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}

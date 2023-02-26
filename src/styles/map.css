@@ -1,0 +1,53 @@
+.map {
+    margin: 1rem auto;
+    width: 450px;
+}
+
+.map svg {
+  stroke: #fff;
+}
+.map svg path {
+    cursor: pointer;
+    outline: none;
+}
+    path:hover {
+      fill: rgba(128, 235, 42, 0.83) !important;
+    }
+
+    path:focus {
+      fill: rgba(128, 235, 42, 0.83);
+    }
+
+    
+    path[aria-checked='true'] {
+      fill: rgba(56,43,168,1);
+    }
+
+    path[aria-current='true'] {
+      fill: rgba(56,43,168,0.83);
+    }
+
+    /* CLIMAT OCEANIQUE */
+svg #fr-62, svg #fr-80, svg #fr-76, svg #fr-27, svg #fr-14, svg #fr-50, svg #fr-61, svg #fr-35, svg #fr-22, svg #fr-56, svg #fr-29, svg #fr-44, svg #fr-85, svg #fr-17, svg #fr-33, svg #fr-40, svg #fr-64 {
+    fill: rgb(101, 192, 186);
+  }
+
+  /* CLIMAT MEDITERANNEEN */
+svg #fr-06, svg #fr-83, svg #fr-13, svg #fr-84, svg #fr-26, svg #fr-07, svg #fr-30, svg #fr-34, svg #fr-11, svg #fr-66, svg #fr-2a, svg #fr-2b {
+    fill: rgb(235, 199, 39)
+  }
+
+  /* CLIMAT MONTAGNARD */
+  svg #fr-65, svg #fr-09, svg #fr-88, svg #fr-25, svg #fr-39, svg #fr-74, svg #fr-73, svg #fr-05, svg #fr-01, svg #fr-38, svg #fr-05, svg #fr-04, svg #fr-63, svg #fr-15, svg #fr-43, svg #fr-48, svg #fr-12, svg #fr-81{
+    fill: rgb(194, 126, 48)
+  }
+
+  /* CLIMAT CONTINENTAL */
+  svg #fr-08, svg #fr-51, svg #fr-10, svg #fr-52, svg #fr-55, svg #fr-54, svg #fr-57, svg #fr-67, svg #fr-68, svg #fr-90, svg #fr-70, svg #fr-21, svg #fr-71, svg #fr-89, svg #fr-21, svg #fr-58, svg #fr-71, svg #fr-03, svg #fr-42, svg #fr-69{
+    fill: rgba(134, 173, 101, 0.83)
+  }
+
+  /* CLIMAT SEMI-OCEANIQUE */
+  svg #fr-32, svg #fr-31, svg #fr-47, svg #fr-82, svg #fr-46, svg #fr-24, svg #fr-16, svg #fr-79, svg #fr-86, svg #fr-36, svg #fr-18, svg #fr-45 , svg #fr-41, svg #fr-37 , svg #fr-91, svg #fr-77, svg #fr-78, svg #fr-95, svg #fr-60, svg #fr-02, svg #fr-87, svg #fr-23, svg #fr-19, svg #fr-53, svg #fr-49, svg #fr-72, svg #fr-28, svg #fr-59, svg #fr-92, svg #fr-93, svg #fr-94, svg #fr-75{
+    fill: rgba(119, 150, 218,1);
+  }

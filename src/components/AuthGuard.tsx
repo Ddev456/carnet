@@ -11,7 +11,7 @@ const AuthGuard = ({ children }: {children: JSX.Element} ) => {
   }
 
   if(status === "unauthenticated") {
-    router.push({pathname: '/login'})
+    router.push({pathname: '/'})
   }
 
   return (<>{ children }</>)

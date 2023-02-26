@@ -45,7 +45,7 @@ export default function Layout({
               height="30"
               className="mr-2 rounded-sm"
             ></Image>
-            <p>Precedent</p>
+            <p>Potager</p>
           </Link>
           <div>
             <AnimatePresence>
@@ -55,7 +55,7 @@ export default function Layout({
                   onClick={() => setShowSignInModal(true)}
                   {...FADE_IN_ANIMATION_SETTINGS}
                 >
-                  Sign In
+                  Se connecter
                 </motion.button>
               ) : (
                 <UserDropdown />
@@ -68,7 +68,7 @@ export default function Layout({
         {children}
       </main>
       <div className="absolute w-full border-t border-gray-200 bg-white py-5 text-center">
-        <p className="text-gray-500">
+        {/* <p className="text-gray-500">
           A free template by{" "}
           <a
             className="font-medium text-gray-800 underline transition-colors"
@@ -78,7 +78,7 @@ export default function Layout({
           >
             Steven Tey
           </a>
-        </p>
+        </p> */}
       </div>
     </>
   );
