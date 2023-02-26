@@ -1,5 +1,13 @@
-import { Event, NativeEvents, Vegetable } from '@prisma/client';
+import { NativeEvents, Vegetable } from '@prisma/client';
 import './date.extension'
+
+type DynamicEvent = {
+    title: string;
+    start: string;
+    end: string;
+    extendedProps: { eventCategory: string, relatedVegetable: number };
+    userId: string;
+}
 
 type DynamicCalendarParam = {
     selection: Vegetable[];
@@ -8,7 +16,8 @@ type DynamicCalendarParam = {
     preferencesDays: number[];
     // week: number;
     year: number;
-    nativeEvents: NativeEvents[] | undefined
+    nativeEvents: NativeEvents[] | undefined;
+    userId: string;
 }
 
 const DateIso = ({week, year}:{week: number, year: number}) => {
@@ -43,7 +52,7 @@ const DynamicDate = ({dateIso, randomOfWeek}: {dateIso: Date, randomOfWeek: numb
 //     return startDate.setDate(dayOfMonth + days)
 // }
 
-export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year, calendars, nativeEvents}: DynamicCalendarParam) => {
+export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year, calendars, nativeEvents, userId}: DynamicCalendarParam) => {
 
     const weekFinder = ({selectionId, climateIndex, nativeEvents, seedling, shelterSeedling}: {selectionId: number, climateIndex: number, nativeEvents: NativeEvents[]|undefined, seedling: boolean, shelterSeedling: boolean}) => {
     
@@ -53,7 +62,7 @@ export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year,
     }
     
     const generate = () => {
-    let arrayOfDates: Event[] = []
+    let arrayOfDates: DynamicEvent[] = []
     
     selection.map((vegetable) => {
 
@@ -69,14 +78,14 @@ export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year,
     const randomOfWeek = DynamicDayOfWeek(preferencesDays).randomOfWeek
     const baseDate = DynamicDate({dateIso: dateIso, randomOfWeek: randomOfWeek}).dynamicDate
     if(seedling){
-    arrayOfDates.push({id: '1',title: `Semis de ${vegetable.name}`, start: baseDate.toISOString(), end: baseDate.toISOString(), extendedProps: {eventCategory: "semis", relatedVegetable: vegetable.id}, userId: '1'})
+    arrayOfDates.push({title: `Semis de ${vegetable.name}`, start: baseDate.toISOString(), end: baseDate.toISOString(), extendedProps: {eventCategory: "semis", relatedVegetable: vegetable.id}, userId: userId})
     }
 
     if(shelterSeedling){
     const dateIso = DateIso({week: weekShelterSeedling, year}).ISOweekStart
     const randomOfWeek = DynamicDayOfWeek(preferencesDays).randomOfWeek
     const shelterSeedlingDate = DynamicDate({dateIso: dateIso, randomOfWeek: randomOfWeek}).dynamicDate
-    arrayOfDates.push({id: '1',title: `Semis de ${vegetable.name}`, start: shelterSeedlingDate.toISOString(), end: shelterSeedlingDate.toISOString(), extendedProps: {eventCategory: "semis sous abri", relatedVegetable: vegetable.id}, userId: '1'})  
+    arrayOfDates.push({title: `Semis de ${vegetable.name}`, start: shelterSeedlingDate.toISOString(), end: shelterSeedlingDate.toISOString(), extendedProps: {eventCategory: "semis sous abri", relatedVegetable: vegetable.id}, userId: userId})  
     }
     // setArrayOfDates(arrayOfDates.concat([startDate]))
     // each calendar
@@ -84,9 +93,16 @@ export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year,
     const germinationDays = native?.germination
     const plantationDays = native?.plantation
     const harvestDays = native?.harvest
-    if(calendars.includes("germination")) { arrayOfDates.push({id: '1',title: `Germination ${vegetable.name}`, start: baseDate.addDays(germinationDays).toISOString(), end: baseDate.addDays(germinationDays).toISOString(), extendedProps: {eventCategory: "germination", relatedVegetable: vegetable.id}, userId: '1'}) }
-    if(calendars.includes("plantation")) { arrayOfDates.push({id: '1',title: `Plantation de ${vegetable.name}`, start: baseDate.addDays(plantationDays).toISOString(), end: baseDate.addDays(plantationDays).toISOString(), extendedProps: {eventCategory: "plantation", relatedVegetable: vegetable.id}, userId: '1'}) }
-    if(calendars.includes("harvest")) {arrayOfDates.push({id: '1',title: `Récolte de ${vegetable.name}`, start: baseDate.addDays(harvestDays).toISOString(), end: baseDate.addDays(harvestDays).toISOString(), extendedProps: {eventCategory: "récolte", relatedVegetable: vegetable.id}, userId: '1'}) }
+    if(calendars.includes("germination")) { 
+        arrayOfDates.push({title: `Germination ${vegetable.name}`, start: baseDate.addDays(germinationDays).toISOString(), 
+        end: baseDate.addDays(germinationDays).toISOString(), extendedProps: {eventCategory: "germination", relatedVegetable: vegetable.id}, userId: userId}) 
+    }
+    if(calendars.includes("plantation")) { 
+        arrayOfDates.push({title: `Plantation de ${vegetable.name}`, start: baseDate.addDays(plantationDays).toISOString(), end: baseDate.addDays(plantationDays).toISOString(), extendedProps: {eventCategory: "plantation", relatedVegetable: vegetable.id}, userId: userId}) 
+    }
+    if(calendars.includes("harvest")) {
+        arrayOfDates.push({title: `Récolte de ${vegetable.name}`, start: baseDate.addDays(harvestDays).toISOString(), end: baseDate.addDays(harvestDays).toISOString(), extendedProps: {eventCategory: "récolte", relatedVegetable: vegetable.id}, userId: userId}) 
+    }
     // if(calendars?.germination) { setArrayOfDates(arrayOfDates.concat([startDate.addDays(8)])) }
     // LOOP IN THIS WITH SELECTION
 })

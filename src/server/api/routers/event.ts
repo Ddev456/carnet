@@ -48,14 +48,15 @@ export const eventRouter = createTRPCRouter({
           title: z.string(),
           start: z.string(),
           end: z.string(),
-          extendedProps: z.object({eventCategory: z.string(), relatedVegetable: z.number()})
+          extendedProps: z.object({eventCategory: z.string(), relatedVegetable: z.number()}),
+          userId: z.string()
       })
       )
     )
     .mutation(async({ ctx, input }) => {
       try {
         await ctx.prisma.event.createMany({
-          data: input,
+          data: input
         });
       } catch (error) {
         console.log(error);

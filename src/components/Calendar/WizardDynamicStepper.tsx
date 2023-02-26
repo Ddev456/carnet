@@ -10,6 +10,7 @@ import { ClimateStep } from "./Form/Dynamic/ClimateStep";
 import { PreferencesStep } from "./Form/Dynamic/PreferencesStep";
 import { DynamicCalendar } from "./Form/Dynamic/DynamicCalendar";
 import { Prisma, Vegetable } from "@prisma/client";
+import { useSession } from "next-auth/react";
 
 const Stepper = ({complete, setComplete}: {complete: boolean, setComplete: Dispatch<SetStateAction<boolean>>}) => {
   
@@ -78,10 +79,10 @@ export default Stepper;
 export const WizardDynamicStepper = ({setShowWizardModal}: {setShowWizardModal: Dispatch<SetStateAction<boolean>>}) => {
 
   const queryNativeEvents = api.nativeEvents.getAll.useQuery()
-  const addEvent = api.event.postEvent.useMutation();
+  const addEvent = api.event.dynamicEvent.useMutation();
   const nativeEvents = queryNativeEvents.data
   console.log(nativeEvents);
-  
+  const {data: Session} = useSession()
   const [dynamic, setDynamic] = useState<string[]>([''])
 
 // !!!!!!!!!!!!!!
@@ -120,45 +121,13 @@ const methods = useForm({
   const onSubmit = (data: any) => {
     console.log(data);
     
-    if(complete){
-
-      // const selection = [10, 16]
-      // const climateIndex = 2
-
-
-      // // const weekFinder = queryNativeEvents.data && queryNativeEvents?.data.find(native => native.vegetableId === vegetableSelected)
- 
-      // const week = 10
+    if(complete === true){
+      const userId = Session?.user.id
+      const input = DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: data.preferencesDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).generate()
       
-      // const preferencesDays = [5]
-
-      // const year = 2023
-
-      // const calendars = {seedling: true, shelterSeedling: false, germination: true, plantation: true, harvest: true}
-
-      // // calendars.map((dateToGenerate) => {
-      console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: data.preferencesDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents}).generate())
-      //  if(dateToGenerate.seedling === true){
-        // const dynDate = DynamicCalendar({preferencesDays, week, year}).generate()
-        // console.log('dynDate', dynDate)
-      //  }
-      //  if(dateToGenerate.germination === true){
-        // console.log(dynDate.addDays())
-      //  }
-      // })
-
-
-
-
-      // addEvent.mutate([])
-  // addEvent.mutate({
-  //   title: data.title,
-  //   start: data.start,
-  //   end: data.end,
-  //   extendedProps: { eventCategory: data.eventCategory, relatedVegetable: data.relatedVegetable.id }
-  // })
-  setShowWizardModal(false)
-  }
+      addEvent.mutate(input)
+      setShowWizardModal(false)
+    }
   }
   return (
         <>
