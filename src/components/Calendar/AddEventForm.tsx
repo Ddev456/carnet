@@ -149,7 +149,8 @@ export const AddEventForm = (event: any) => {
                     title: title,
                     start: start.toISOString(),
                     end: new Date(start.getTime() + (1 * 60 * 60 * 1000)).toISOString(),
-                    extendedProps: { eventCategory: eventCategory, relatedVegetable: relatedVegetable }
+                    eventCategory: eventCategory, 
+                    relatedVegetable: relatedVegetable
                   });
                   setTitle("")
                   setStart(new Date())

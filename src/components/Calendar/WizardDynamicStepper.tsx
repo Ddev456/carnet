@@ -11,6 +11,14 @@ import { PreferencesStep } from "./Form/Dynamic/PreferencesStep";
 import { DynamicCalendar } from "./Form/Dynamic/DynamicCalendar";
 import { Prisma, Vegetable } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import { UseQueryOptions } from "@tanstack/react-query";
+
+interface UseTRPCQueryOptions extends UseQueryOptions{
+  trpc: {
+    refetchOnWindowFocus: boolean;
+  }
+}
+
 
 const Stepper = ({complete, setComplete}: {complete: boolean, setComplete: Dispatch<SetStateAction<boolean>>}) => {
   
@@ -78,11 +86,12 @@ export default Stepper;
 
 export const WizardDynamicStepper = ({setShowWizardModal}: {setShowWizardModal: Dispatch<SetStateAction<boolean>>}) => {
 
-  const queryNativeEvents = api.nativeEvents.getAll.useQuery()
-  const addEvent = api.event.dynamicEvent.useMutation();
-  const nativeEvents = queryNativeEvents.data
-  console.log(nativeEvents);
   const {data: Session} = useSession()
+  const id = Session?.user.id
+  const queryNativeEvents = api.nativeEvents.getAll.useQuery<UseTRPCQueryOptions>(undefined, {enabled: !!id, refetchOnWindowFocus: false})
+  const addEvent = api.event.dynamicEvent.useMutation();
+  const nativeEvents = queryNativeEvents!.data
+  console.log(nativeEvents);
   const [dynamic, setDynamic] = useState<string[]>([''])
 
 // !!!!!!!!!!!!!!
@@ -122,12 +131,12 @@ const methods = useForm({
     console.log(data);
     
     if(complete === true){
-      const userId = Session?.user.id
+      const userId = Session!.user.id
       const prefDays: number[] = data.preferencesDays.map((pref: string)=> { return parseInt(pref) })
 
       // console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).generate())
       // console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).dynDate)
-      const input = DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).generate()
+      const input = DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents: nativeEvents, userId: userId}).generate()
       
       addEvent.mutate(input)
       setShowWizardModal(false)

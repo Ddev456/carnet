@@ -2,7 +2,27 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const eventRouter = createTRPCRouter({
-    getAll: protectedProcedure
+  getEvents: protectedProcedure
+    .query(async ({ctx}) => {
+        try{
+          return await ctx.prisma.event.findMany({
+            where: {
+              userId: ctx.session.user.id,
+            },
+            select: {
+              id: true,
+              title: true,
+              start: true,
+              end: true,
+              userId: true,
+            }
+          })
+        } catch(error){
+          console.log("error", error);
+        }
+    }),  
+  
+  getAll: protectedProcedure
     .query(async ({ ctx, input }) => {
         try {
           return await ctx.prisma.user.findMany({
@@ -23,7 +43,8 @@ export const eventRouter = createTRPCRouter({
         title: z.string(),
         start: z.string(),
         end: z.string(),
-        extendedProps: z.object({eventCategory: z.string(), relatedVegetable: z.number()})
+        eventCategory: z.string(), 
+        relatedVegetable: z.number()
       })
     )
     .mutation(async ({ ctx, input }) => {
@@ -34,7 +55,8 @@ export const eventRouter = createTRPCRouter({
             start: input.start,
             end: input.end,
             userId: ctx.session.user.id,
-            extendedProps: input.extendedProps
+            eventCategory: input.eventCategory,
+            relatedVegetable: input.relatedVegetable
           },
         });
       } catch (error) {
@@ -48,7 +70,8 @@ export const eventRouter = createTRPCRouter({
           title: z.string(),
           start: z.string(),
           end: z.string(),
-          extendedProps: z.object({eventCategory: z.string(), relatedVegetable: z.number()}),
+          eventCategory: z.string(), 
+          relatedVegetable: z.number(),
           userId: z.string()
       })
       )

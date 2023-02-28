@@ -103,7 +103,8 @@ const methods = useForm({
     title: data.title,
     start: data.start,
     end: data.end,
-    extendedProps: { eventCategory: data.eventCategory, relatedVegetable: data.relatedVegetable.id }
+    eventCategory: data.eventCategory, 
+    relatedVegetable: data.relatedVegetable.id
   })
   setShowWizardModal(false)
   }

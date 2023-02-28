@@ -18,8 +18,9 @@ import { HiPlus } from 'react-icons/hi'
 
 export const Calendar = () => {
     const query = api.event.getAll.useQuery<UseTRPCQueryOptions>(undefined, {refetchOnWindowFocus: false})
-    const { wizardType, opened, setOpened, handleDateClick, handleEventClick, dateOnClick, eventOnClick } = useWizard()
-    
+    const queryEvents = api.event.getEvents.useQuery<UseTRPCQueryOptions>(undefined, {refetchOnWindowFocus: false})
+
+    const events = queryEvents.isSuccess && queryEvents.data || []
 
     const buildToolbar = () => {
         return {
@@ -71,7 +72,7 @@ export const Calendar = () => {
         dateClick={handleAddOnDate}
         eventClick={({event}) => handleUpdateOnEvent(event.toPlainObject())}
         initialView="dayGridMonth"
-        events={query.data[0]?.events}
+        events={events}
         />
         }
         </div>

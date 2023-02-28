@@ -113,7 +113,8 @@ model Event {
     end                 String
     User                User?    @relation(fields: [userId], references: [id])
     userId              String?
-    extendedProps       Json
+    eventCategory       String
+    relatedVegetable    Int
 
     @@index([userId])
 }
@@ -125,5 +126,6 @@ model NativeEvents {
     germination         Int
     plantation          Int
     harvest             Int
-    nativeWeeks         Json        @db.Json
+    seedling            Int
+    shelterSeedling     Int
 }
