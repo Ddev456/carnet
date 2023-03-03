@@ -30,11 +30,11 @@ export const Calendar = () => {
           right: 'dayGridMonth,listMonth,multiMonthYear'
         }
       }
-      const { WizardModal, setShowWizardModal, setWizardType, setOnClickInfos } = useWizardModal();
+      const { WizardModal, setShowWizardModal, setWizardType, setOnClickInfos, setOnClickUpdateInfos } = useWizardModal();
    
       const handleAdd = () => {  setWizardType("ADD"); setShowWizardModal(true); }
       const handleAddOnDate = (onClickInfos: EventInput) => { setWizardType("ADDONDATE"); setOnClickInfos(onClickInfos); setShowWizardModal(true); }
-      const handleUpdateOnEvent = (onClickInfos: EventInput) => { setWizardType("UPDATE"); setOnClickInfos(onClickInfos.toPlainObject()); setShowWizardModal(true); }
+      const handleUpdateOnEvent = (onClickUpdateInfos: EventInput) => { setWizardType("UPDATE"); setOnClickUpdateInfos(JSON.stringify(onClickUpdateInfos)); setShowWizardModal(true); }
       const handleDynamic = () => {  setWizardType("DYNAMIC"); setShowWizardModal(true); } 
     return(
     <>

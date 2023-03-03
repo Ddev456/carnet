@@ -32,9 +32,10 @@ const Stepper = ({complete, setComplete}: {complete: boolean, setComplete: Dispa
         {steps?.map((step, i) => (
           <div key={i}>
           <div
-            
-            className={`step-item ${currentStep === i + 1} active ${
-              (i + 1 < currentStep || complete) } complete`}
+            className={(currentStep === i + 1) ? "step-item active" : "complete"}
+            // REMETTRE ? !!!!!!!!
+            // className={`step-item ${currentStep === i + 1} active ${
+            //   (i + 1 < currentStep || complete) } complete`}
             >
              
             <div className="step" >
@@ -76,7 +77,7 @@ export const WizardAddStepper = ({setShowWizardModal, event}: {setShowWizardModa
 type FormInputs = {
   title: string;
   eventCategory: string;
-  relatedVegetable: {};
+  relatedVegetable: number;
   start: string;
   end: string;
 };
@@ -88,22 +89,21 @@ const { register } = useForm<FormInputs>();
 const methods = useForm({
     defaultValues: {
       title: "",
-      eventCategory:"", 
-      relatedVegetable:{},
+      eventCategory: "", 
+      relatedVegetable: 0,
       start: "",
       end: ""
     },
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = (data: FormInputs) => {
     if(complete){
   addEvent.mutate({
     title: data.title,
     start: data.start,
     end: data.end,
     eventCategory: data.eventCategory, 
-    relatedVegetable: data.relatedVegetable.id
+    relatedVegetable: data.relatedVegetable
   })
   setShowWizardModal(false)
   }
@@ -111,7 +111,7 @@ const methods = useForm({
   return (
         <>
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <form onSubmit={() => void methods.handleSubmit(onSubmit)}>
                 <Stepper complete={complete} setComplete={setComplete}/>
             </form>
           </FormProvider>

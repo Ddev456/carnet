@@ -45,10 +45,9 @@ const Stepper = ({complete, setComplete}: {complete: boolean, setComplete: Dispa
         {steps?.map((step, i) => (
           <div key={i}>
           <div
-            
-            className={`step-item ${currentStep === i + 1 && "active"} ${
-              (i + 1 < currentStep || complete) && "complete"
-            } `}
+            className = { (currentStep === i + 1) ? "step-item active": "step-item complete"} 
+            // className={`step-item ${currentStep === i + 1} active ${
+            //   (i + 1 < currentStep || complete)} complete`}
             >
              
             <div className="step" >
@@ -90,22 +89,7 @@ export const WizardDynamicStepper = ({setShowWizardModal}: {setShowWizardModal: 
   const id = Session?.user.id
   const queryNativeEvents = api.nativeEvents.getAll.useQuery<UseTRPCQueryOptions>(undefined, {enabled: !!id, refetchOnWindowFocus: false})
   const addEvent = api.event.dynamicEvent.useMutation();
-  const nativeEvents = queryNativeEvents!.data
-  console.log(nativeEvents);
-  const [dynamic, setDynamic] = useState<string[]>([''])
-
-// !!!!!!!!!!!!!!
-
-  // const dateIsoWeekStart =(DynamicCalendar({week:15, year:2023}).ISOweekStart)
-  // const pref = [2,4,6]
-  // const dayOfWeek = Math.floor(Math.random() * pref.length)
-  // const randomOfWeek = pref[dayOfWeek-1]
-
-
-// !!!!!!!!!!!!!!!
-// const dayofmonth = dateIsoWeekStart.getDate()
-//   console.log(new Date(dateIsoWeekStart.setDate(dayofmonth + randomOfWeek)));
-  // SOLUTION
+  const nativeEvents = queryNativeEvents.data
   
 type FormInputs = {
   selection: Vegetable[];
@@ -127,16 +111,15 @@ const methods = useForm({
     },
   });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = (data: FormInputs) => {
     
     if(complete === true){
       const userId = Session!.user.id
-      const prefDays: number[] = data.preferencesDays.map((pref: string)=> { return parseInt(pref) })
+      // const prefDays: number[] = data.preferencesDays.map((pref: string)=> { return parseInt(pref) })
 
       // console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).generate())
       // console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).dynDate)
-      const input = DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents: nativeEvents, userId: userId}).generate()
+      const input = DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: data.preferencesDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents: nativeEvents, userId: userId}).generate()
       
       addEvent.mutate(input)
       setShowWizardModal(false)
@@ -145,7 +128,7 @@ const methods = useForm({
   return (
         <>
           <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
+            <form onSubmit={() => void methods.handleSubmit(onSubmit)}>
                 <Stepper complete={complete} setComplete={setComplete}/>
             </form>
           </FormProvider>

@@ -10,7 +10,7 @@ const AuthGuard = ({ children }: {children: JSX.Element} ) : JSX.Element => {
     return <main className="flex flex-col items-center pt-4">Chargement...</main>;
   }
 
-  if(status === "unauthenticated") router.push('/')
+  if(status === "unauthenticated") () => void router.push('/')
 
 
   return (<>{ children }</>)

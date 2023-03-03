@@ -2,10 +2,11 @@ import { WizardAddStepper } from "./WizardAddStepper"
 import { WizardUpdateStepper } from "./WizardUpdateStepper"
 import { WizardDynamicStepper } from "./WizardDynamicStepper"
 import { Dispatch, SetStateAction } from "react"
+import { EventInput } from "fullcalendar"
 
 type WizardProps = {
     wizardType: string
-    onClickInfos?: any
+    onClickInfos?: EventInput
     setShowWizardModal: Dispatch<SetStateAction<boolean>>
 }
 

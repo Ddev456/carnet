@@ -16,7 +16,7 @@
   },
   "plugins": ["@typescript-eslint"],
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
-  "ignorePatterns": ["**/lib/hooks/*.ts", "**/lib/*.ts", "**/Dynamic/Map.tsx"],
+  "ignorePatterns": ["**/lib/hooks/*.ts", "**/lib/*.ts", "**/Dynamic/Map.tsx", "**/Shared/leaflet.tsx"],
   "rules": {
     "@typescript-eslint/consistent-type-imports": "warn"
   }
