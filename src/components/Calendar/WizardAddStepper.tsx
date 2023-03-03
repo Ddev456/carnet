@@ -33,9 +33,8 @@ const Stepper = ({complete, setComplete}: {complete: boolean, setComplete: Dispa
           <div key={i}>
           <div
             
-            className={`step-item ${currentStep === i + 1 && "active"} ${
-              (i + 1 < currentStep || complete) && "complete"
-            } `}
+            className={`step-item ${currentStep === i + 1} active ${
+              (i + 1 < currentStep || complete) } complete`}
             >
              
             <div className="step" >

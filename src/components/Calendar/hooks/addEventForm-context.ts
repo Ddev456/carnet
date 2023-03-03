@@ -12,3 +12,7 @@ interface AddEventFormValues {
 export const [AddEventFormProvider,
   useAddEventFormContext, useAddEventForm] =
   createFormContext<AddEventFormValues>();
+
+function createFormContext<T>(): [any, any, any] {
+  throw new Error("Function not implemented.");
+}

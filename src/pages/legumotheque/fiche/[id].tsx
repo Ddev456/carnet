@@ -27,7 +27,7 @@ const Sheet = () => {
     if(!router.isReady) return <p>Chargement ..</p>
 
     return <>
-        <Button leftIcon={<IoChevronBack />} onClick={()=>router.push('/legumotheque')} variant="white" color="lime">
+        <Button leftIcon={<IoChevronBack />} onClick={()=> void router.push('/legumotheque')} variant="white" color="lime">
             Retour
         </Button>
         <SheetPaper>

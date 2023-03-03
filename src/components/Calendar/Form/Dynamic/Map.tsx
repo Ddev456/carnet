@@ -21,7 +21,7 @@ export const Map = () => {
         if(mountain.includes(id)){ setValue('climateIndex', 4) }
     }
     const layerProps = {
-      onClick: ({ target }:any) => { setClicked({id: target.attributes.id.value, name: target.attributes.name.value}); handleClimate(target.attributes.id.value) }
+      onClick: ({ target } : any) => { setClicked({id: target.attributes.id.value, name: target.attributes.name.value}); handleClimate(target?.attributes.id.value) }
     };
 
   return (

@@ -6,7 +6,7 @@ export {}
 declare global {
    interface Date {
     //   addDays(days: number, useThis?: boolean): Date;
-      addDays(days: number): Date;
+      addDays(days: number | undefined): Date;
    }
 }
 

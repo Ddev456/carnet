@@ -10,6 +10,8 @@ import {
 import { LoadingDots } from "../Shared/Icons/Icons";
 import Image from "next/image";
 import { Wizard } from "../Calendar/Wizard";
+import { DateClickArg, EventClickArg, EventInput } from "fullcalendar";
+import { EventImpl } from "@fullcalendar/core/internal";
 
 const WizardModal = ({
   showWizardModal,
@@ -30,7 +32,7 @@ const WizardModal = ({
         <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
           <h3 className="font-display text-2xl font-bold">{wizardType}</h3>
           <p className="text-sm text-gray-500">
-            Bienvenue sur l'assistant potager !
+            Bienvenue sur l\'assistant potager !
           </p>
         </div>
 
@@ -44,8 +46,8 @@ const WizardModal = ({
 
 export function useWizardModal() {
   const [showWizardModal, setShowWizardModal] = useState(false);
-  const [wizardType, setWizardType] = useState('');
-  const [onClickInfos, setOnClickInfos] = useState();
+  const [wizardType, setWizardType] = useState<string>('');
+  const [onClickInfos, setOnClickInfos] = useState<EventInput | undefined>();
   const WizardModalCallback = useCallback(() => {
     return (
       <WizardModal

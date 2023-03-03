@@ -1,5 +1,4 @@
 import { UseQueryOptions } from "@tanstack/react-query";
-import { TableSort } from "../../components/Table";
 import { api } from "../../utils/api";
 
 export interface UseTRPCQueryOptions extends UseQueryOptions{
@@ -14,7 +13,8 @@ const VegetablesEntries = () => {
     return (
       <>
       {query.isLoading && <div> Chargement .. </div>}
-      {query.data && <TableSort data={query.data}/>}
+      {/* {query.data && <TableSort data={query.data}/>} */}
+      {query.data && <></>}
       </>
     )
   };

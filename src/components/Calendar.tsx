@@ -1,9 +1,8 @@
 import FullCalendar from "@fullcalendar/react"
 import dayGridPlugin from "@fullcalendar/daygrid"
-import interactionPlugin from "@fullcalendar/interaction"
+import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction"
 import { api } from "../utils/api";
 import { Wizard } from "./Calendar/Wizard";
-import { useWizard } from "./Calendar/hooks/useWizard";
 import listPlugin from "@fullcalendar/list"
 import frLocale from '@fullcalendar/core/locales/fr';
 import multiMonthPlugin from '@fullcalendar/multimonth'
@@ -15,6 +14,8 @@ import { useWizardModal } from "./Layout/WizardModal";
 import { AnimatePresence, motion } from "framer-motion";
 import { FADE_IN_ANIMATION_SETTINGS } from "../../lib/constants";
 import { HiPlus } from 'react-icons/hi'
+import { EventClickArg, EventInput } from "fullcalendar";
+import { EventImpl } from "@fullcalendar/core/internal";
 
 export const Calendar = () => {
     const query = api.event.getAll.useQuery<UseTRPCQueryOptions>(undefined, {refetchOnWindowFocus: false})
@@ -32,8 +33,8 @@ export const Calendar = () => {
       const { WizardModal, setShowWizardModal, setWizardType, setOnClickInfos } = useWizardModal();
    
       const handleAdd = () => {  setWizardType("ADD"); setShowWizardModal(true); }
-      const handleAddOnDate = (onClickInfos: any) => { setWizardType("ADDONDATE"); setOnClickInfos(onClickInfos); setShowWizardModal(true); }
-      const handleUpdateOnEvent = (onClickInfos: any) => { setWizardType("UPDATE"); setOnClickInfos(onClickInfos); setShowWizardModal(true); }
+      const handleAddOnDate = (onClickInfos: EventInput) => { setWizardType("ADDONDATE"); setOnClickInfos(onClickInfos); setShowWizardModal(true); }
+      const handleUpdateOnEvent = (onClickInfos: EventInput) => { setWizardType("UPDATE"); setOnClickInfos(onClickInfos.toPlainObject()); setShowWizardModal(true); }
       const handleDynamic = () => {  setWizardType("DYNAMIC"); setShowWizardModal(true); } 
     return(
     <>
@@ -70,7 +71,7 @@ export const Calendar = () => {
         headerToolbar={buildToolbar()}
         plugins={[ dayGridPlugin, interactionPlugin, listPlugin, multiMonthPlugin ]}
         dateClick={handleAddOnDate}
-        eventClick={({event}) => handleUpdateOnEvent(event.toPlainObject())}
+        eventClick={handleUpdateOnEvent}
         initialView="dayGridMonth"
         events={events}
         />

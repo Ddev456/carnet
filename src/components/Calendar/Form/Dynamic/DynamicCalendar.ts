@@ -21,7 +21,7 @@ type DynamicCalendarParam = {
     userId: string;
 }
 
-const DateIso = ({week, year}:{week: number, year: number}) => {
+const DateIso = ({week, year}:{week: number | undefined, year: number}) => {
     // var simple = new Date(year, 0, 1 + (week - 1) * 7);
     // var dow = simple.getDay();
     // var ISOweekStart = simple;
@@ -29,7 +29,7 @@ const DateIso = ({week, year}:{week: number, year: number}) => {
     //     ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
     // else
     //     ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
-    const day = (1 + (week) * 7)
+    const day = (1 + (week!) * 7)
     const ISOweekStart = new Date(year, 0, day)
     return {
         ISOweekStart
@@ -42,10 +42,10 @@ const DynamicDayOfWeek = (preferences: number[]) => {
     return { randomOfWeek }
 }
 
-const DynamicDate = ({dateIso, randomOfWeek}: {dateIso: Date, randomOfWeek: number}) => {
+const DynamicDate = ({dateIso, randomOfWeek}: {dateIso: Date, randomOfWeek: number | undefined}) => {
     const dayOfMonth = dateIso.getDate()
 
-    const dynamicDate = new Date(dateIso.setDate(dayOfMonth + randomOfWeek))   
+    const dynamicDate = new Date(dateIso.setDate(dayOfMonth + randomOfWeek!))   
 
     return { dynamicDate }
 }
@@ -54,13 +54,13 @@ export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year,
 
     const weekFinder = ({selectionId, climateIndex, nativeEvents, seedling, shelterSeedling}: {selectionId: number, climateIndex: number, nativeEvents: NativeEvents[]|undefined, seedling: boolean, shelterSeedling: boolean}) => {
     
-        const native = nativeEvents?.find((native) => native.vegetableId === selectionId)
-        if(seedling) return native?.seedling + climateIndex
-        if(shelterSeedling) return native?.shelterSeedling + climateIndex
+        const native = nativeEvents && nativeEvents.find((native) => native.vegetableId === selectionId)
+        if(seedling) return native && native.seedling + climateIndex
+        if(shelterSeedling) return native && native?.shelterSeedling + climateIndex
     }
     
     const generate = () => {
-    let arrayOfDates: DynamicEvent[] = []
+    const arrayOfDates: DynamicEvent[] = []
     
     selection.map((vegetable) => {
 

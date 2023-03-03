@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { signOut, useSession } from "next-auth/react";
+import { signOut, SignOutResponse, useSession } from "next-auth/react";
 import Popover from "../Shared/Popover";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -7,7 +7,7 @@ import { FADE_IN_ANIMATION_SETTINGS } from "../../../lib/constants";
 import { useRouter } from "next/router.js";
 
 export default function UserDropdown() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const { email, image } = session?.user || {};
   const [openPopover, setOpenPopover] = useState(false);
   const router = useRouter()
@@ -31,14 +31,14 @@ export default function UserDropdown() {
             </Link> */}
             <button
               className="relative flex w-full items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100"
-              onClick={() => router.push("/dashboard")}
+              onClick={() => void router.push("/dashboard")}
             >
               {/* <LayoutDashboard className="h-4 w-4" /> ICON */}
               <p className="text-sm">Dashboard</p>
             </button>
             <button
               className="relative flex w-full items-center justify-start space-x-2 rounded-md p-2 text-left text-sm transition-all duration-75 hover:bg-gray-100"
-              onClick={() => signOut({ redirect: false })}
+              onClick={() => void signOut({ redirect: false })}
             >
               {/* <LogOut className="h-4 w-4" /> ICON */}
               <p className="text-sm">Logout</p>
