@@ -32,11 +32,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
             </Head>
        
               {Component.requireAuth ? (
-                <AuthGuard>
+                // <AuthGuard>
                     <DashboardLayout>
                         <Component {...pageProps}/>
                     </DashboardLayout>
-              </AuthGuard>
+              // </AuthGuard>
               ) : (
                 <RWBProvider>
                     <Component {...pageProps} />

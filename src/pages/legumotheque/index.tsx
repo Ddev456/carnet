@@ -1,5 +1,7 @@
 import { UseQueryOptions } from "@tanstack/react-query";
+import { GetServerSidePropsContext } from "next";
 import { api } from "../../utils/api";
+import { requireAuthentication } from "../../utils/requireAuthentication";
 
 export interface UseTRPCQueryOptions extends UseQueryOptions{
   trpc: {
@@ -28,3 +30,11 @@ const VegetablesEntries = () => {
   export default Legumotheque
 
   Legumotheque.requireAuth = true
+
+  export function getServerSideProps(context: GetServerSidePropsContext){
+    return requireAuthentication(context, ( session ) => {
+        return {
+          props: session
+        }
+      })
+}

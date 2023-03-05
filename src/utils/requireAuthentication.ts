@@ -8,7 +8,7 @@ export const requireAuthentication = async (context: {
     res: GetServerSidePropsContext["res"];
   }, cb: (session: Session) => { props: Session}) => {
     const session = await  getServerAuthSession(context)
-// A REVOIR !!!!!!!
+
     if(!session) {
         return {
             redirect: {

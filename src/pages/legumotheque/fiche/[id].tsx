@@ -6,6 +6,8 @@ import { SheetPaper } from '../../../components/SheetPaper'
 import { UseTRPCQueryOptions } from '../index'
 import { api } from '../../../utils/api'
 import { useEffect, useState } from 'react'
+import { GetServerSidePropsContext } from 'next'
+import { requireAuthentication } from '../../../utils/requireAuthentication'
 
 
 const Sheet = () => {
@@ -44,3 +46,11 @@ const Sheet = () => {
 export default Sheet
 
 Sheet.requireAuth = true
+
+export function getServerSideProps(context: GetServerSidePropsContext){
+    return requireAuthentication(context, ( session ) => {
+        return {
+          props: session
+        }
+      })
+}
