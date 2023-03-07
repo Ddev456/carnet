@@ -14,7 +14,7 @@ type DynamicCalendarParam = {
     selection: Vegetable[];
     climateIndex: number;
     calendars: string[];
-    preferencesDays: number[];
+    preferencesDays: string[];
     // week: number;
     year: number;
     nativeEvents: NativeEvents[] | undefined;
@@ -22,15 +22,15 @@ type DynamicCalendarParam = {
 }
 
 const DateIso = ({week, year}:{week: number | undefined, year: number}) => {
-    // var simple = new Date(year, 0, 1 + (week - 1) * 7);
-    // var dow = simple.getDay();
-    // var ISOweekStart = simple;
-    // if (dow <= 4)
-    //     ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
-    // else
-    //     ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
-    const day = (1 + (week!) * 7)
-    const ISOweekStart = new Date(year, 0, day)
+    const simple = new Date(year, 0, 1 + (week! - 1) * 7);
+    const dow = simple.getDay();
+    const ISOweekStart = simple;
+    if (dow <= 4)
+        ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+    else
+        ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+    // const day = (1 + (week!) * 7)
+    // const ISOweekStart = new Date(year, 0, day)
     return {
         ISOweekStart
     }
@@ -52,6 +52,7 @@ const DynamicDate = ({dateIso, randomOfWeek}: {dateIso: Date, randomOfWeek: numb
 
 export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year, calendars, nativeEvents, userId}: DynamicCalendarParam) => {
 
+    const preferencesDaysNumber = preferencesDays.map((prefDay: string)=> { return parseInt(prefDay) })
     const weekFinder = ({selectionId, climateIndex, nativeEvents, seedling, shelterSeedling}: {selectionId: number, climateIndex: number, nativeEvents: NativeEvents[]|undefined, seedling: boolean, shelterSeedling: boolean}) => {
     
         const native = nativeEvents && nativeEvents.find((native) => native.vegetableId === selectionId)
@@ -67,11 +68,11 @@ export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year,
     const seedling = calendars.includes("seedling")
     const shelterSeedling = calendars.includes("shelterSeedling")
 
-   const weekSeedling = weekFinder({selectionId: vegetable.id, climateIndex, nativeEvents, seedling: seedling, shelterSeedling: false})
-   const weekShelterSeedling = weekFinder({selectionId: vegetable.id, climateIndex, nativeEvents, seedling: false, shelterSeedling: shelterSeedling})
+    const weekSeedling = weekFinder({selectionId: vegetable.id, climateIndex: climateIndex, nativeEvents: nativeEvents, seedling: seedling, shelterSeedling: false})
+    const weekShelterSeedling = weekFinder({selectionId: vegetable.id, climateIndex: climateIndex, nativeEvents: nativeEvents, seedling: false, shelterSeedling: shelterSeedling})
 
     const dateIso = DateIso({week: weekSeedling, year: year}).ISOweekStart
-    const randomOfWeek = DynamicDayOfWeek(preferencesDays).randomOfWeek
+    const randomOfWeek = DynamicDayOfWeek(preferencesDaysNumber).randomOfWeek
     const baseDate = DynamicDate({dateIso: dateIso, randomOfWeek: randomOfWeek}).dynamicDate
     if(seedling === true){
     arrayOfDates.push({title: `Semis de ${vegetable.name}`, start: baseDate.toISOString(), end: baseDate.toISOString(), eventCategory: "semis", relatedVegetable: vegetable.id, userId: userId})
@@ -79,7 +80,7 @@ export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year,
 
     if(shelterSeedling === true){
     const dateIso = DateIso({week: weekShelterSeedling, year}).ISOweekStart
-    const randomOfWeek = DynamicDayOfWeek(preferencesDays).randomOfWeek
+    const randomOfWeek = DynamicDayOfWeek(preferencesDaysNumber).randomOfWeek
     const shelterSeedlingDate = DynamicDate({dateIso: dateIso, randomOfWeek: randomOfWeek}).dynamicDate
     arrayOfDates.push({title: `Semis de ${vegetable.name}`, start: shelterSeedlingDate.toISOString(), end: shelterSeedlingDate.toISOString(), eventCategory: "semis sous abri", relatedVegetable: vegetable.id, userId: userId})  
     }
@@ -104,10 +105,11 @@ export const DynamicCalendar = ({selection, climateIndex, preferencesDays, year,
     }
 
     // TESTS
-    const weekTest = weekFinder({selectionId: 2, climateIndex: 1, nativeEvents, seedling: true, shelterSeedling: false})
+    const weekTest = weekFinder({selectionId: 2, climateIndex: 0, nativeEvents, seedling: true, shelterSeedling: false})
     const dateIso = DateIso({week: weekTest, year:2023}).ISOweekStart
-    const randomTheWeek = DynamicDayOfWeek([6]).randomOfWeek
+    const randomTheWeek = DynamicDayOfWeek([0,6]).randomOfWeek
     const dynDate = DynamicDate({dateIso: dateIso, randomOfWeek: randomTheWeek})
+    const varTest = { selection, climateIndex, preferencesDays, calendars, nativeEvents }
     // TESTS
-return { generate, weekTest, dateIso, randomTheWeek, dynDate }
+return { generate, weekTest, dateIso, randomTheWeek, dynDate, varTest }
 }

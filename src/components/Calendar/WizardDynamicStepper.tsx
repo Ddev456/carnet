@@ -76,7 +76,7 @@ const Stepper = ({complete, setComplete}: {complete: boolean, setComplete: Dispa
         </button>
       )}
      { complete === true && currentStep === steps.length && <button className="text-white font-bold bg-lime-500 hover:bg-gradient-to-br 
-          focus:outline-none rounded-lg px-5 py-2.5 text-center mr-2 mb-2 border-none" type="submit">Ajouter au calendrier</button> }
+          focus:outline-none rounded-lg px-5 py-2.5 text-center mr-2 mb-2 border-none">Ajouter au calendrier</button> }
     </>
   );
 };
@@ -94,7 +94,7 @@ export const WizardDynamicStepper = ({setShowWizardModal}: {setShowWizardModal: 
 type FormInputs = {
   selection: Vegetable[];
   climateIndex: number;
-  preferencesDays: number[];
+  preferencesDays: string[];
   preferencesCalendar: string[];
 };
 
@@ -112,23 +112,22 @@ const methods = useForm({
   });
 
   const onSubmit = (data: FormInputs) => {
-    
+
     if(complete === true){
       const userId = Session!.user.id
-      // const prefDays: number[] = data.preferencesDays.map((pref: string)=> { return parseInt(pref) })
 
-      // console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).generate())
-      // console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: prefDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents, userId}).dynDate)
-      const input = DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: data.preferencesDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents: nativeEvents, userId: userId}).generate()
-      
-      addEvent.mutate(input)
-      setShowWizardModal(false)
+      // TESTS !!!!!!!!!!!!!!!!!!!
+      // const input = DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: data.preferencesDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents: nativeEvents, userId: userId}).generate()
+      // console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: data.preferencesDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents: nativeEvents, userId: userId}).generate())
+      console.log(DynamicCalendar({selection: data.selection, climateIndex: data.climateIndex, preferencesDays: data.preferencesDays, year: (new Date().getFullYear()), calendars: data.preferencesCalendar, nativeEvents: nativeEvents, userId: userId}).generate())
+      // addEvent.mutate(input)
+      // setShowWizardModal(false)
     }
   }
   return (
         <>
           <FormProvider {...methods}>
-            <form onSubmit={() => void methods.handleSubmit(onSubmit)}>
+            <form onSubmit={methods.handleSubmit(onSubmit)}>
                 <Stepper complete={complete} setComplete={setComplete}/>
             </form>
           </FormProvider>

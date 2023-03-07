@@ -18,6 +18,11 @@
   "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended"],
   "ignorePatterns": ["**/lib/hooks/*.ts", "**/lib/*.ts", "**/Dynamic/Map.tsx", "**/Shared/leaflet.tsx"],
   "rules": {
-    "@typescript-eslint/consistent-type-imports": "warn"
+    "@typescript-eslint/consistent-type-imports": "warn",
+    "@typescript-eslint/no-misused-promises": [2, {
+      "checksVoidReturn": {
+        "attributes": false
+      }
+    }]
   }
 }
